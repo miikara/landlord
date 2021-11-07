@@ -1,0 +1,173 @@
+(base) Miikas-MBP:hakemisto miika$ git log --stat | cat
+commit 018993f0a135dbebea8229b4fb1d387a22df041d
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:24:41 2021 +0200
+
+    viimeinen commit, file22 luotu file2:sta
+
+ hakemisto/file2.txt                 | 0
+ hakemisto/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ff566663829ec8a7495533bdf1334e4a75deceea
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:19:50 2021 +0200
+
+    kolme tiedosto nimeltään file lisätty alihakemistoon
+
+ hakemisto/file1.txt | 0
+ hakemisto/file2.txt | 0
+ hakemisto/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 4813c41a7c46c9e41d2558eb58f974c54ad2a870
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:16:25 2021 +0200
+
+    lopullinen
+
+ kolmas.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit f3fbddee5ef79fc4e7e8a187ad41b5a48557cd1f
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:08:15 2021 +0200
+
+    uusi nimi
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f80702a83491cae37b1af84d5a1b34e313916373
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:07:09 2021 +0200
+
+    toinen poistettu
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a4672628dff5dfcb494548565156a43e2a79101d
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:01:58 2021 +0200
+
+    uusi kansio
+
+ kolmas.txt             | 1 +
+ stuff/jokutiedosto.txt | 0
+ 2 files changed, 1 insertion(+)
+
+commit 94badc93736c472a737aac57e9529cabe44f15a3
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 12:58:24 2021 +0200
+
+    lisää kamaa
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a94e8585082922bc658388c714bfc7b43cf5b4aa
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Thu Nov 4 11:04:12 2021 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit fe4461d018f8b987b0dafcfd557fd4071d396cd6
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Thu Nov 4 10:56:41 2021 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+(base) Miikas-MBP:hakemisto miika$ cd ..
+(base) Miikas-MBP:repositorio_test miika$ git log --stat | cat
+commit 018993f0a135dbebea8229b4fb1d387a22df041d
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:24:41 2021 +0200
+
+    viimeinen commit, file22 luotu file2:sta
+
+ hakemisto/file2.txt                 | 0
+ hakemisto/{file1.txt => file22.txt} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit ff566663829ec8a7495533bdf1334e4a75deceea
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:19:50 2021 +0200
+
+    kolme tiedosto nimeltään file lisätty alihakemistoon
+
+ hakemisto/file1.txt | 0
+ hakemisto/file2.txt | 0
+ hakemisto/file3.txt | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 4813c41a7c46c9e41d2558eb58f974c54ad2a870
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:16:25 2021 +0200
+
+    lopullinen
+
+ kolmas.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit f3fbddee5ef79fc4e7e8a187ad41b5a48557cd1f
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:08:15 2021 +0200
+
+    uusi nimi
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit f80702a83491cae37b1af84d5a1b34e313916373
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:07:09 2021 +0200
+
+    toinen poistettu
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a4672628dff5dfcb494548565156a43e2a79101d
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 13:01:58 2021 +0200
+
+    uusi kansio
+
+ kolmas.txt             | 1 +
+ stuff/jokutiedosto.txt | 0
+ 2 files changed, 1 insertion(+)
+
+commit 94badc93736c472a737aac57e9529cabe44f15a3
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Fri Nov 5 12:58:24 2021 +0200
+
+    lisää kamaa
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a94e8585082922bc658388c714bfc7b43cf5b4aa
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Thu Nov 4 11:04:12 2021 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit fe4461d018f8b987b0dafcfd557fd4071d396cd6
+Author: Miika Rannikko <miika.rannikko@gmail.com>
+Date:   Thu Nov 4 10:56:41 2021 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
