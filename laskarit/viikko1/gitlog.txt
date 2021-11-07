@@ -1,3 +1,4 @@
+TULOSTE:
 (base) Miikas-MBP:hakemisto miika$ git log --stat | cat
 commit 018993f0a135dbebea8229b4fb1d387a22df041d
 Author: Miika Rannikko <miika.rannikko@gmail.com>
