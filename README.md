@@ -5,11 +5,18 @@ This application is intended for a landlord to manage tenant relationships, stor
 
 **Getting Started:** TBA<br>
 
+**Documentation:** <br>
+[gitlog.txt](https://github.com/miikara/landlord/blob/master/laskarit/viikko1/gitlog.txt)<br>
+[komentorivi.txt](https://github.com/miikara/landlord/blob/master/laskarit/viikko1/komentorivi.txt)
+
 **License:** TBA <br>
 
 **Contact:** miika.rannikko@gmail.com
 
-**Exercises**
+**Exercises**<br>
 **Week 1:**<br>
-[gitlog.txt](https://github.com/miikara/landlord/blob/master/laskarit/viikko1/gitlog.txt)<br>
-[komentorivi.txt](https://github.com/miikara/landlord/blob/master/laskarit/viikko1/komentorivi.txt)
+[Requirements (vaatimusmäärittely)](https://github.com/miikara/landlord/blob/master/documentation/requirements.MD)<br>
+[Work log (työaikakirjanpito)](https://github.com/miikara/landlord/blob/master/documentation/work_log.MD)
+
+**Week 2:**<br>
+[coverage_report.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko2/coverage_report.png)
