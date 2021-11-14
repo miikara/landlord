@@ -28,7 +28,7 @@ Only one standard user role is supported for all users
 ## User interface
 The application has a graphical user interface and the first view is the login (and register) view.
 
-
+<img src="https://raw.githubusercontent.com/miikara/landlord/master/documentation/pictures/ui.png">
 
 ## Potential future functional capabilities
 * User can recover his/her password
