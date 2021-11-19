@@ -22,6 +22,6 @@ This application is intended for a landlord to manage tenant relationships, stor
 [coverage_report.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko2/coverage_report.png)
 
 **Week 3:**<br>
-[monopoly.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko3/monopoly.png)
-[machine_sequence_chart.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko3/machine_sequence_chart.png)
+[monopoly.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko3/monopoly.png)<br>
+[machine_sequence_chart.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko3/machine_sequence_chart.png)<br>
 [hsl_sequence_chart.png](https://github.com/miikara/landlord/blob/master/laskarit/viikko3/hsl_sequence_chart.png)
