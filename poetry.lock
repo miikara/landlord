@@ -1,0 +1,28 @@
+[[package]]
+name = "pysqlite"
+version = "2.8.3"
+description = "DB-API 2.0 interface for SQLite 3.x"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "uuid"
+version = "1.30"
+description = "UUID object and generation functions (Python 2.3 or higher)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "25bc5ee21b9e32b1c303be31527b77ba2ef9e0c3e23711eb53670eb5d41cde18"
+
+[metadata.files]
+pysqlite = [
+    {file = "pysqlite-2.8.3.tar.gz", hash = "sha256:17d3335863e8cf8392eea71add33dab3f96d060666fe68ab7382469d307f4490"},
+]
+uuid = [
+    {file = "uuid-1.30.tar.gz", hash = "sha256:1f87cc004ac5120466f36c5beae48b4c48cc411968eed0eaecd3da82aa96193f"},
+]
