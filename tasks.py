@@ -5,4 +5,10 @@ from invoke import task
 def start(ctx):
     ctx.run("python3 src/service.py")
 
-# Add test tasks
+@task
+def test(ctx):
+    ctx.run("python3 src/service_test.py")
+
+@task
+def coverage(ctx):
+    ctx.run("coverage run --branch -m pytest src")
