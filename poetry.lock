@@ -1,7 +1,7 @@
 [[package]]
-name = "pysqlite"
-version = "2.8.3"
-description = "DB-API 2.0 interface for SQLite 3.x"
+name = "invoke"
+version = "1.6.0"
+description = "Pythonic task execution"
 category = "main"
 optional = false
 python-versions = "*"
@@ -17,11 +17,13 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "25bc5ee21b9e32b1c303be31527b77ba2ef9e0c3e23711eb53670eb5d41cde18"
+content-hash = "0522fdcfd875d469ba5af4c97efd39cf079dd520a65cc5fb9bb9d36cae99f92c"
 
 [metadata.files]
-pysqlite = [
-    {file = "pysqlite-2.8.3.tar.gz", hash = "sha256:17d3335863e8cf8392eea71add33dab3f96d060666fe68ab7382469d307f4490"},
+invoke = [
+    {file = "invoke-1.6.0-py2-none-any.whl", hash = "sha256:e6c9917a1e3e73e7ea91fdf82d5f151ccfe85bf30cc65cdb892444c02dbb5f74"},
+    {file = "invoke-1.6.0-py3-none-any.whl", hash = "sha256:769e90caeb1bd07d484821732f931f1ad8916a38e3f3e618644687fc09cb6317"},
+    {file = "invoke-1.6.0.tar.gz", hash = "sha256:374d1e2ecf78981da94bfaf95366216aaec27c2d6a7b7d5818d92da55aa258d3"},
 ]
 uuid = [
     {file = "uuid-1.30.tar.gz", hash = "sha256:1f87cc004ac5120466f36c5beae48b4c48cc411968eed0eaecd3da82aa96193f"},
