@@ -1,4 +1,5 @@
-import database
+# import database # from database import DataBase
+from database import DataBaseService
 
 Prompt = """
 -----landlord menu------
@@ -6,10 +7,12 @@ Prompt = """
 1. Insert new user
 2. Insert new unit
 3. Retrieve all users
-4. Retrieve all units that belong to a specific user
+4. Retreive user by username
+5. Retrieve all units that belong to a specific user
 """
 class BasicMenu():
     def prompt(self):
+        database = DataBaseService()
         conn = database.connect()
         database.create_users_table(conn)
         database.create_units_table(conn)
@@ -34,13 +37,17 @@ class BasicMenu():
                 for user in all_users:
                     print(user)
             elif selected == '4':
+                username = input('Insert username: ')
+                user = database.get_user(conn, username)
+                print(user)
+            elif selected == '5':
                 selected_username = input('Select user(name) whose units you wish to see: ')
                 selected_units = database.get_all_units_by_username(conn, selected_username)
                 for unit in selected_units:
                     print(unit)
             else:
                 print('Unknown input, please select again')
-        return "Menu closed"
+        return conn.close()
 
 
 basic_menu = BasicMenu()
