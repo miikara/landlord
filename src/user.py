@@ -4,4 +4,4 @@ class User:
         self.password = password
 
     def __str__(self):
-        return f"User {self.username}"
+        return f"User named {self.username}"

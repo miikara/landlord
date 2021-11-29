@@ -1,54 +1,87 @@
-# import database # from database import DataBase
-from database import DataBaseService
+import database
+from user import User
+from repositories.user_repository import UserRepository
+from unit import Unit
 
-Prompt = """
------landlord menu------
+# Database connection for objects requiring it
+conn = database.get_connection()
+if conn != None:
+    print('Connection established to database')
+
+database.create_users_table(conn)
+database.create_units_table(conn)
+user_repo_used = UserRepository(conn)
+
+LoginPrompt = """
+-----login menu------
 0. Exit application
-1. Insert new user
-2. Insert new unit
-3. Retrieve all users
-4. Retreive user by username
-5. Retrieve all units that belong to a specific user
+1. Create account
+2. Login to your account
 """
-class BasicMenu():
-    def prompt(self):
-        database = DataBaseService()
-        conn = database.connect()
-        database.create_users_table(conn)
-        database.create_units_table(conn)
+
+MenuPrompt = """
+-----login menu------
+0. Log out
+"""
+
+class LandlordService:
+    def __init__(
+        self,
+        user_repository = user_repo_used
+    ):
+        self._user = None
+        self._user_repository = user_repository
+
+    def login(self):
         while True:
-            selected = input(Prompt)
+            if self._user != None:
+                break
+            else:
+                selected = input(LoginPrompt)
             if selected == '0':
                 break
             elif selected == '1':
-                username = input('Insert username: ')
-                password = input('Select password: ')
-                database.create_user(conn, username, password)
+                username_input = input('Select username: ')
+                password_input = input('Select password: ')
+                if len(password_input) < 5:
+                    print('Minimum password length is five characters. Please select again.')
+                elif self._user_repository.get_user(username_input) != None:
+                    print('Username taken. Please select again.')
+                else:
+                    user_to_create = User(username_input, password_input)
+                    self._user_repository.create_user_to_database(user_to_create)
+                    print('User succesfully created.')
             elif selected == '2':
-                username = input('Insert username: ')
-                address = input('Insert unit address: ')
-                location = input('Insert unit location: ')
-                square_meters = float(input('Insert unit size in square meters: '))
-                asking_price = float(input('Insert unit asking price: '))
-                purchase_price = float(input('Insert unit asking price: '))
-                database.create_unit(conn, username, address, location, square_meters, asking_price, purchase_price)
+                username_input = input('Username: ')
+                password_input = input('Password: ')
+                password_from_database = self._user_repository.get_password(username_input).fetchone()[0]
+                if password_from_database == str(password_input):
+                    print('Login succesful')
+                    login_user = self._user_repository.get_user(username_input)
+                    self._user = login_user
+                else:
+                    print('Login unsuccesful. Please select again.')
             elif selected == '3':
-                all_users = database.get_all_users(conn)
-                for user in all_users:
-                    print(user)
-            elif selected == '4':
-                username = input('Insert username: ')
-                user = database.get_user(conn, username)
-                print(user)
-            elif selected == '5':
-                selected_username = input('Select user(name) whose units you wish to see: ')
-                selected_units = database.get_all_units_by_username(conn, selected_username)
-                for unit in selected_units:
-                    print(unit)
+                username_input = input('Insert username: ')
+                retrieved_user = self._user_repository.get_password(username_input)
+                return print(retrieved_user) # After UI is changed this should return just the user object
             else:
                 print('Unknown input, please select again')
-        return conn.close()
+        return self._user
+
+    def menu(self):
+        while True:
+            selected = input(MenuPrompt)
+            if selected == '0':
+                self._user == None
+            else:
+                print('Unknown input, please select again')
 
 
-basic_menu = BasicMenu()
-basic_menu.prompt()
+service = LandlordService()
+service.login()
+#if service._user == None:
+#    service.login()
+#else:
+#    service.menu()
+conn.close()

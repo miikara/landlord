@@ -8,3 +8,4 @@
 | 14.11.       | Requirements and UI | 3
 | 21.11.       | Learning & implementing sqlite3, first classes, rough text UI | 6
 | 22.11.       | Implementing first unit test and coverage, creation of DataBaseService class, tidying up repository | 4
+| 28.11.       | Separating user database functionality, login feature | 6
