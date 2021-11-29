@@ -3,6 +3,7 @@ import database
 from repositories.user_repository import UserRepository
 from user import User
 
+
 class TestUserRepository(unittest.TestCase):
     def test_create_user(self):
         test_conn = database.get_connection()
