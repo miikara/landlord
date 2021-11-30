@@ -5,10 +5,10 @@ The purpose of the application is to allow landlords to keep track of their oper
 
 ## Functional capabilities
 User not logged in:
-* User can create a username and password
-    * Username has to be unique and have a minimum length of five characters
-    * Password has a minimum length of five character
-* User can log in
+* User can create a username and password TEHTY
+    * Username has to be unique
+    * Password has a minimum length of five characters
+* User can log in TEHTY
     * A notification is issued when a username doesn't exists
     * A notification is issued when password is incorrect
 
