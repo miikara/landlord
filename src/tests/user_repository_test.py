@@ -1,7 +1,7 @@
 import unittest
 import database
 from repositories.user_repository import UserRepository
-from user import User
+from entities.user import User
 
 
 class TestUserRepository(unittest.TestCase):

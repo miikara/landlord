@@ -2,6 +2,7 @@ import database as db
 from entities.unit import Unit
 # Might need to import user_repository for functions that use user attributes
 
+
 class UnitRepository:
     """Unit repository class which manages the database operation for Unit class when user is logged in"""
 
@@ -31,7 +32,8 @@ class UnitRepository:
         conn = self._connection
         with conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT * FROM units WHERE username = ?;',(user.username, ))
+            cursor.execute(
+                'SELECT * FROM units WHERE username = ?;', (user.username, ))
             results = list(cursor)
             # result_set = [row[0] for row in cursor] as an option
         return results

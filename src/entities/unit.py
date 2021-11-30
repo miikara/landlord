@@ -1,5 +1,6 @@
 import datetime
 
+
 class Unit:
     def __init__(self, user, address, location, square_meters=0, asking_price=0, purchase_price=0):
         self.username = username
