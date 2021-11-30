@@ -2,6 +2,8 @@ import database
 from entities.user import User
 from repositories.user_repository import UserRepository
 from entities.unit import Unit
+from repositories.unit_repository import UnitRepository
+
 
 # Database connection for objects requiring it
 conn = database.get_connection()
@@ -57,8 +59,11 @@ class LandlordService:
             elif selected == '2':
                 username_input = input('Username: ')
                 password_input = input('Password: ')
-                password_from_database = self._user_repository.get_password(
-                    username_input).fetchone()[0]
+                if self._user_repository.get_user(username_input) is not None:
+                    password_from_database = self._user_repository.get_password(
+                        username_input).fetchone()[0]
+                else:
+                    password_from_database = ''
                 if password_from_database == str(password_input):
                     print('Login succesful')
                     login_user = self._user_repository.get_user(username_input)
@@ -86,8 +91,4 @@ class LandlordService:
 
 service = LandlordService()
 service.login()
-# if service._user == None:
-#    service.login()
-# else:
-#    service.menu()
 conn.close()

@@ -23,6 +23,7 @@ class UserRepository:
         with conn:
             conn.execute('DELETE FROM users WHERE username = ?;',
                          (user.username, ))
+            conn.commit()
 
     def get_user(self, username):
         """Function that retrieves a user object by its username"""
@@ -39,7 +40,7 @@ class UserRepository:
         return result_user
 
     def get_password(self, username):
-        """Function that retrieves a user object's password"""
+        """Function that retrieves a user object's password when a user exists in the database"""
         conn = self._connection
         with conn:
             result_password = conn.execute(
