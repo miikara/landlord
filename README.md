@@ -31,7 +31,9 @@ poetry run invoke lint
 
 **Documentation:** <br>
 [Requirements (vaatimusmäärittely)](https://github.com/miikara/landlord/blob/master/documentation/requirements.MD)<br>
-[Work log (työaikakirjanpito)](https://github.com/miikara/landlord/blob/master/documentation/work_log.MD)
+[Work log (työaikakirjanpito)](https://github.com/miikara/landlord/blob/master/documentation/work_log.MD)<br>
+[Architecture (arkkitehtuuri)](https://github.com/miikara/landlord/blob/master/documentation/architecture.MD)
+
 
 **License:** TBA <br>
 
