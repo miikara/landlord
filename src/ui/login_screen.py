@@ -3,10 +3,11 @@ from tkinter.ttk import *
 
 
 class LoginScreen:
-    def __init__(self, root):
+    def __init__(self, root, handle_show_signup_screen):
         self._root = root
         self._frame = None
-        self._initialize()
+        self._handle_show_signup_screen = handle_show_signup_screen
+        self.initialize()
 
     def pack(self):
         self._frame.pack()
@@ -14,7 +15,7 @@ class LoginScreen:
     def destroy(self):
         self._frame.destroy()
 
-    def _initialize(self):
+    def initialize(self):
         self._frame = Frame(master=self._root)
 
         username_label = Label(master=self._frame, text='Username')
@@ -26,7 +27,8 @@ class LoginScreen:
 
         create_account_button = Button(
             master=self._frame,
-            text='Sign up'
+            text='Sign up',
+            command=self._handle_show_signup_screen
         )
 
         username_label.grid(pady=6, row=0, column=0)

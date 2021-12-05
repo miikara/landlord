@@ -1,21 +1,34 @@
 from login_screen import LoginScreen
+from signup_screen import SignupScreen
 from tkinter import *
 
 
 class UI:
     def __init__(self, root):
         self._root = root
-        self._view = None
+        self._current_view = None
 
     def hide_view(self):
-        if self._view is not None:
-            self._view.destroy()
-        self._view = None
+        if self._current_view is not None:
+            self._current_view.destroy()
+        self._current_view = None
 
     def initialize(self):
-        self._current_view = LoginScreen(self._root)
+        self._current_view = LoginScreen(self._root, self.show_signup_screen)
         self._current_view.pack()
 
+    def show_login_screen(self):
+        self.hide_view()
+        self._current_view = LoginScreen(self._root, self.show_signup_screen)
+        self._current_view.pack()
+
+    def show_signup_screen(self):
+        self.hide_view()
+        self._current_view = SignupScreen(self._root, self.show_login_screen)
+        self._current_view.pack()
+
+    def show_menu_screen(self):
+        pass
 
 window = Tk()
 window.title("LANDLORD APP")
