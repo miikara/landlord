@@ -1,7 +1,6 @@
-import database as db
+#import database as db
 from entities.unit import Unit
 # Might need to import user_repository for functions that use user attributes
-
 
 class UnitRepository:
     """Unit repository class which manages the database operation for Unit class when user is logged in"""

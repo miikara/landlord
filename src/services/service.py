@@ -4,15 +4,14 @@ from repositories.user_repository import UserRepository
 from entities.unit import Unit
 from repositories.unit_repository import UnitRepository
 
-
 # Database connection for objects requiring it
 conn = database.get_connection()
 if conn is not None:
-    print('Connection established to database')
+    print('Connection established to database from service module')
 
 database.create_users_table(conn)
 database.create_units_table(conn)
-user_repo_used = UserRepository(conn)
+user_repo_used = UserRepository(conn) # Should these be initialized in repositories themselves?
 
 LoginPrompt = """
 -----login menu------
@@ -21,12 +20,6 @@ LoginPrompt = """
 2. Login to your account
 """
 
-MenuPrompt = """
------login menu------
-0. Log out
-"""
-
-
 class LandlordService:
     def __init__(
         self,
@@ -34,7 +27,14 @@ class LandlordService:
     ):
         self._user = None
         self._user_repository = user_repository
+    
+    # New
+    def create_user(self, chosen_username, chosen_password):
+        user_to_create = User(chosen_username, chosen_password)
+        user = self._user_repository.create_to_database(user_to_create)
+        return user
 
+    # Old
     def login(self):
         while True:
             if self._user != None:
@@ -80,15 +80,6 @@ class LandlordService:
                 print('Unknown input, please select again')
         return self._user
 
-    def menu(self):
-        while True:
-            selected = input(MenuPrompt)
-            if selected == '0':
-                self._user == None
-            else:
-                print('Unknown input, please select again')
-
-
-service = LandlordService()
-service.login()
+landlord_service = LandlordService()
+# landlord_service.login() /removed when gui started instead of text ui
 conn.close()

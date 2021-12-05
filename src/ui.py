@@ -1,7 +1,6 @@
-from login_screen import LoginScreen
-from signup_screen import SignupScreen
+from ui.login_screen import LoginScreen
+from ui.signup_screen import SignupScreen
 from tkinter import *
-
 
 class UI:
     def __init__(self, root):

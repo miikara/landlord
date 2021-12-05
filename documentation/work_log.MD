@@ -11,3 +11,4 @@
 | 28.11.       | Separating user database functionality, login feature | 6
 | 29.11.       | Architecture description | 2
 | 30.11.       | Unit repository, UI | 4
+| 5.12.        | Learning about imports and how to reference modules, UI | 6

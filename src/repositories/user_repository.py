@@ -1,6 +1,5 @@
-import database as db
+#import database as db
 from entities.user import User
-
 
 class UserRepository:
     """User repository class which manages the database operation for User class and has an automatically created connection after initialised
@@ -16,6 +15,7 @@ class UserRepository:
             conn.execute('INSERT INTO users (username, password) values (?, ?);',
                          (user.username, user.password))
             conn.commit()
+        return user
 
     def delete_user_from_database(self, user):
         """Function allows service to drop an existing user from database using the user object and its attribute username"""

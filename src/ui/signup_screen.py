@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
+from services.service import LandlordService # toimii
+s = LandlordService() # testi
 
 class SignupScreen:
     def __init__(self, root, handle_show_login_screen):
