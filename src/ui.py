@@ -23,7 +23,7 @@ class UI:
 
     def show_signup_screen(self):
         self.hide_view()
-        self._current_view = SignupScreen(self._root, self.show_login_screen)
+        self._current_view = SignupScreen(self._root, self.show_signup_screen, self.show_login_screen)
         self._current_view.pack()
 
     def show_menu_screen(self):

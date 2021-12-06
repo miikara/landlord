@@ -1,6 +1,6 @@
 import database
 from entities.user import User
-from repositories.user_repository import UserRepository
+from repositories.user_repository import user_repository_used
 from entities.unit import Unit
 from repositories.unit_repository import UnitRepository
 
@@ -11,7 +11,6 @@ if conn is not None:
 
 database.create_users_table(conn)
 database.create_units_table(conn)
-user_repo_used = UserRepository(conn) # Should these be initialized in repositories themselves?
 
 LoginPrompt = """
 -----login menu------
@@ -23,15 +22,18 @@ LoginPrompt = """
 class LandlordService:
     def __init__(
         self,
-        user_repository=user_repo_used
+        user_repository = user_repository_used
     ):
         self._user = None
         self._user_repository = user_repository
     
-    # New
     def create_user(self, chosen_username, chosen_password):
         user_to_create = User(chosen_username, chosen_password)
-        user = self._user_repository.create_to_database(user_to_create)
+        user = self._user_repository.create_user_to_database(user_to_create)
+        return user_to_create
+
+    def get_user(self, username):
+        user = self._user_repository.get_user(username)
         return user
 
     # Old
@@ -72,14 +74,10 @@ class LandlordService:
                     print('Login unsuccesful. Please select again.')
             elif selected == '3':
                 username_input = input('Insert username: ')
-                retrieved_user = self._user_repository.get_password(
-                    username_input)
-                # After UI is changed this should return just the user object
+                retrieved_user = self._user_repository.get_password(username_input)
                 return print(retrieved_user)
             else:
                 print('Unknown input, please select again')
         return self._user
 
 landlord_service = LandlordService()
-# landlord_service.login() /removed when gui started instead of text ui
-conn.close()
