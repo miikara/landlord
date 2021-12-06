@@ -44,6 +44,6 @@ class UserRepository:
         with conn:
             result_password = conn.execute(
                 'SELECT password FROM users WHERE username = ?;', (username, ))
-        return result_password
+        return result_password.fetchone()[0]
 
 user_repository_used = UserRepository(connection=db.get_connection())
