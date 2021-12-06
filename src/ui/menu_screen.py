@@ -3,6 +3,7 @@ from tkinter.ttk import *
 from tkinter import messagebox
 from services.service import landlord_service
 
+
 class MenuScreen:
     def __init__(self, root, stay_on_screen):
         self._root = root

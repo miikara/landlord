@@ -3,6 +3,7 @@ from tkinter.ttk import *
 from tkinter import messagebox
 from services.service import landlord_service
 
+
 class SignupScreen:
     def __init__(self, root, stay_on_screen, go_back_screen):
         self._root = root
@@ -23,12 +24,14 @@ class SignupScreen:
         chosen_username = self._username_field_input.get()
         chosen_password = self._password_field_input.get()
         if landlord_service.get_user(chosen_username) is not None:
-            messagebox.showinfo(title='Invalid input', message='Username already taken, please choose again!', icon='error')
+            messagebox.showinfo(
+                title='Invalid input', message='Username already taken, please choose again!', icon='error')
             self._stay_on_screen()
         elif len(chosen_password) < 5:
-            messagebox.showinfo(title='Invalid input', message='Password length less than five characters, please choose again!', icon='error')
+            messagebox.showinfo(
+                title='Invalid input', message='Password length less than five characters, please choose again!', icon='error')
             self._stay_on_screen()
-        else:    
+        else:
             landlord_service.create_user(chosen_username, chosen_password)
             self._go_back_screen()
 
@@ -38,7 +41,7 @@ class SignupScreen:
         self._username_field_input = Entry(master=self._frame)
         password_label = Label(master=self._frame, text='Choose Password')
         self._password_field_input = Entry(master=self._frame)
-        
+
         create_user_button = Button(
             master=self._frame,
             text='Create account',

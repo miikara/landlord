@@ -12,14 +12,15 @@ if conn is not None:
 database.create_users_table(conn)
 database.create_units_table(conn)
 
+
 class LandlordService:
     def __init__(
         self,
-        user_repository = user_repository_used
+        user_repository=user_repository_used
     ):
         self._user = None
         self._user_repository = user_repository
-    
+
     def create_user(self, chosen_username, chosen_password):
         user_to_create = User(chosen_username, chosen_password)
         user = self._user_repository.create_user_to_database(user_to_create)
@@ -37,5 +38,6 @@ class LandlordService:
         user_attempting_login = User(username, password)
         self._user = user_attempting_login
         return user_attempting_login
+
 
 landlord_service = LandlordService()

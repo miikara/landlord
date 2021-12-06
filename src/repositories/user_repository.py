@@ -1,9 +1,11 @@
 import database as db
 from entities.user import User
 
+
 class UserRepository:
     """User repository class which manages the database operation for User class and has an automatically created connection after initialised
     """
+
     def __init__(self, connection):
         self._connection = connection
 
@@ -45,5 +47,6 @@ class UserRepository:
             result_password = conn.execute(
                 'SELECT password FROM users WHERE username = ?;', (username, ))
         return result_password.fetchone()[0]
+
 
 user_repository_used = UserRepository(connection=db.get_connection())
