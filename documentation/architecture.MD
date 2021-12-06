@@ -21,3 +21,8 @@ The application has (will have) six entities or classes:
 6. Tenant, who is the counterparty for a contract and the dweller of the unit 
  
 <img src="https://raw.githubusercontent.com/miikara/landlord/master/documentation/pictures/class diagram.png">
+
+## Sequence diagram for accunt creation
+
+The user can create an account from the signup screen with the following sequence:
+<img src="https://raw.githubusercontent.com/miikara/landlord/master/documentation/pictures/sequence_chart_sign_up.png">
