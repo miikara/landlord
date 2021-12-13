@@ -32,8 +32,8 @@ class LoginScreen:
             password_in_database = landlord_service.get_password(
                 entered_username)
             if password_in_database == str(entered_password):
-                self._go_to_menu_screen()
                 landlord_service.login(entered_username, entered_password)
+                self._go_to_menu_screen()
             else:
                 messagebox.showinfo(
                     title='Invalid input', message='Incorrect password, please check your input!', icon='error')

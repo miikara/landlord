@@ -33,7 +33,7 @@ class UI:
 
     def show_menu_screen(self):
         self.hide_view()
-        self._current_view = MenuScreen(self._root, self.show_menu_screen)
+        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen) # Lisätty kolmas...
         self._current_view.pack()
 
 

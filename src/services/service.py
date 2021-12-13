@@ -29,6 +29,9 @@ class LandlordService:
         user = self._user_repository.get_user(username)
         return user
 
+    def get_logged_in_user(self):
+        return self._user
+
     def get_password(self, username):
         password = self._user_repository.get_password(username)
         return password
@@ -38,5 +41,7 @@ class LandlordService:
         self._user = user_attempting_login
         return user_attempting_login
 
+    def logout(self):
+        self._user = None
 
 landlord_service = LandlordService()
