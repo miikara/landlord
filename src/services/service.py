@@ -12,7 +12,6 @@ if conn is not None:
 database.create_users_table(conn)
 database.create_units_table(conn)
 
-
 class LandlordService:
     def __init__(
         self,
