@@ -1,10 +1,10 @@
-#import database as db
+import database as db
 from entities.unit import Unit
 # Might need to import user_repository for functions that use user attributes
 
 
 class UnitRepository:
-    """Unit repository class which manages the database operation for Unit class when user is logged in"""
+    """Unit repository class which manages the database operations for Unit class when user is logged in"""
 
     def __init__(self, connection):
         self._connection = connection
@@ -14,7 +14,7 @@ class UnitRepository:
         conn = self._connection
         with conn:
             conn.execute('INSERT INTO units (username, address, location, square_meters, asking_price, purchase_price, unit_date, owned) values (?, ?, ?, ?, ?, ?, ?, ?);',
-                         (unit.username, unit.address, unit.password, unit.location, unit.square_meters, unit.asking_price, unit.purchase_price, unit.unit_date, unit.owned))
+                         (unit.username, unit.address, unit.location, unit.square_meters, unit.asking_price, unit.purchase_price, unit.unit_date, unit.owned))
             conn.commit()
 
     def get_all_units(self):
@@ -24,7 +24,6 @@ class UnitRepository:
             cursor = conn.cursor()
             cursor.execute('SELECT * FROM units;')
             results = list(cursor)
-            # result_set = [row[0] for row in cursor] as an option
         return results
 
     def get_users_units(self, user):
@@ -35,7 +34,6 @@ class UnitRepository:
             cursor.execute(
                 'SELECT * FROM units WHERE username = ?;', (user.username, ))
             results = list(cursor)
-            # result_set = [row[0] for row in cursor] as an option
         return results
 
     def sell_unit(self, unit):
@@ -55,3 +53,5 @@ class UnitRepository:
             conn.execute('UPDATE units SET owned = 1 WHERE address = ?;',
                          (unit.address, ))
             conn.commit()
+
+unit_repository_used = UnitRepository(connection=db.get_connection())

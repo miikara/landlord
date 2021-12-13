@@ -2,7 +2,7 @@ import database
 from entities.user import User
 from repositories.user_repository import user_repository_used
 from entities.unit import Unit
-from repositories.unit_repository import UnitRepository
+from repositories.unit_repository import unit_repository_used
 
 # Database connection for objects requiring it
 conn = database.get_connection()
@@ -15,10 +15,12 @@ database.create_units_table(conn)
 class LandlordService:
     def __init__(
         self,
-        user_repository=user_repository_used
+        user_repository=user_repository_used,
+        unit_repository=unit_repository_used
     ):
         self._user = None
         self._user_repository = user_repository
+        self._unit_repository = unit_repository
 
     def create_user(self, chosen_username, chosen_password):
         user_to_create = User(chosen_username, chosen_password)
@@ -35,6 +37,12 @@ class LandlordService:
     def get_password(self, username):
         password = self._user_repository.get_password(username)
         return password
+
+    def create_unit(self, chosen_address, chosen_location, chosen_square_meters, chosen_asking_price, chosen_purchase_price):
+        username_used = str(self._user)
+        unit_to_create = Unit(username_used, chosen_address, chosen_location, chosen_square_meters, chosen_asking_price, chosen_purchase_price)
+        unit = self._unit_repository.add_unit_to_database(unit_to_create)
+        return unit_to_create
 
     def login(self, username, password):
         user_attempting_login = User(username, password)
