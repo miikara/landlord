@@ -44,6 +44,10 @@ class LandlordService:
         unit = self._unit_repository.add_unit_to_database(unit_to_create)
         return unit_to_create
 
+    def get_units_owned(self):
+        units = self._unit_repository.get_users_units(self._user)
+        return units
+
     def login(self, username, password):
         user_attempting_login = User(username, password)
         self._user = user_attempting_login
