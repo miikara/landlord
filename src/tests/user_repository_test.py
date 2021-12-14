@@ -1,16 +1,42 @@
 import unittest
-import database
-from repositories.user_repository import UserRepository
+from repositories.user_repository import user_repository_used # Are the imports failing???
 from entities.user import User
 
 
 class TestUserRepository(unittest.TestCase):
-    def test_create_user(self):
-        test_conn = database.get_connection()
-        test_user_repository = UserRepository(test_conn)
-        test_user_to_create = User('test_user_name', 'test_password')
-        test_user_repository.create_user_to_database(test_user_to_create)
-        result = test_user_repository.get_user('test_name')
-        test_user_repository.delete_user_from_database(test_user_to_create)
-        test_conn.close()
+    def set_up(self):
+        self.user = None
+        self.user2 = None
+
+    def test_create_user_to_database(self):
+        user_repository_used.delete_all_users_from_database()
+        self.user = User('Test_username', 'Test_password')
+        user_repository_used.create_user_to_database(self.user)
+        result = user_repository_used.get_user('Test_username')
         self.assertNotEqual(result, None)
+
+    def test_delete_user_from_database(self):
+        user_repository_used.delete_all_users_from_database()
+        self.user = User('Test_username', 'Test_password')
+        user_repository_used.create_user_to_database(self.user)
+        user_repository_used.delete_user_from_database(self.user)
+        result = user_repository_used.get_user('Test_username')
+        self.assertEqual(result, None)
+
+    def test_get_user(self):
+        user_repository_used.delete_all_users_from_database()
+        self.user = User('Test_username', 'Test_password')
+        user_repository_used.create_user_to_database(self.user)
+        result_user = user_repository_used.get_user('Test_username')
+        self.assertNotEqual(result_user, None)
+
+    def test_get_password(self):
+        user_repository_used.delete_all_users_from_database()
+        self.user = User('Test_username', 'Test_password')
+        user_repository_used.create_user_to_database(self.user)
+        result_password = user_repository_used.get_password('Test_username')
+        self.assertEqual(result_password, 'Test_password')
+
+
+    if __name__ == "__main__":
+        unittest.main()

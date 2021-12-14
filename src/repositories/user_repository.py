@@ -18,6 +18,12 @@ class UserRepository:
             conn.commit()
         return user
 
+    def delete_all_users_from_database(self):
+        conn = self._connection
+        with conn:
+            conn.execute('DELETE FROM users;')
+            conn.commit()
+
     def delete_user_from_database(self, user):
         """Function allows service to drop an existing user from database using the user object and its attribute username"""
         conn = self._connection
