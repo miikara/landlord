@@ -13,6 +13,7 @@
 | 30.11.       | Unit repository, UI | 4
 | 5.12.        | Learning about imports and how to reference modules, UI | 6
 | 6.12.        | Signup and login functionalities, tkinter | 6
-| 13.12.        | Main menu, unit database operations| 6
-| TOTAL        |  | 48.5
+| 13.12.        | Main menu, unit database operations, displaying results in tkinter | 7.5
+| 14.12.        | Lease entity| 4
+| TOTAL        |  | 54
 

@@ -2,6 +2,7 @@ from ui.login_screen import LoginScreen
 from ui.signup_screen import SignupScreen
 from ui.menu_screen import MenuScreen
 from ui.insert_units_screen import InsertUnitsScreen
+from ui.insert_leases_screen import InsertLeasesScreen
 from ui.get_statistics_screen import StatisticsScreen
 from tkinter import *
 
@@ -35,12 +36,17 @@ class UI:
 
     def show_menu_screen(self):
         self.hide_view()
-        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen, self.show_insert_units_screen, self.show_statistics_screen)
+        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen, self.show_insert_units_screen, self.show_insert_leases_screen, self.show_statistics_screen)
         self._current_view.pack()
 
     def show_insert_units_screen(self):
         self.hide_view()
         self._current_view = InsertUnitsScreen(self._root, self.show_insert_units_screen, self.show_menu_screen)
+        self._current_view.pack()
+
+    def show_insert_leases_screen(self):
+        self.hide_view()
+        self._current_view = InsertLeasesScreen(self._root, self.show_insert_leases_screen, self.show_menu_screen)
         self._current_view.pack()
 
     def show_statistics_screen(self):

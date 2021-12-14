@@ -63,7 +63,7 @@ class InsertUnitsScreen:
         create_unit_button = Button(
             master=self._frame,
             text='Add unit',
-            command=self.create_unit_to_database # tämä
+            command=self.create_unit_to_database
         )
 
         create_unit_button.grid(pady=6, row=5, column=1)
