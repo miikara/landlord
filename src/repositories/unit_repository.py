@@ -35,7 +35,6 @@ class UnitRepository:
         return results
 
     def sell_unit(self, unit):
-        # Id could be added to object later and search with unit's id. Address is considered unique
         """Function sets unit's owned status to False"""
         conn = self._connection
         with conn:
@@ -44,7 +43,6 @@ class UnitRepository:
             conn.commit()
 
     def acquire_unit(self, unit):
-        # Id could be added to object later and search with unit's id. Address is considered unique
         """Function sets unit's owned status to False"""
         conn = self._connection
         with conn:

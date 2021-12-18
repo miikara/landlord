@@ -39,6 +39,18 @@ def create_leases_table(connection):
         connection.execute(
             'CREATE TABLE IF NOT EXISTS leases (lease_id INTEGER PRIMARY KEY, unit_id INTEGER, created_time TIMESTAMP, start_date TIMESTAMP, end_date TIMESTAMP, end_date_on_contract TIMESTAMP, tenant TEXT, original_monthly_rent NUM, current_monthly_rent NUM, maximum_annual_rent_increase NUM, rent_due_date INTEGER, deposit NUM,FOREIGN KEY (unit_id) REFERENCES units (unit_id));')
 
+
 def drop_leases_table(connection):
     with connection:
         connection.execute('DROP TABLE IF EXISTS leases;')
+
+
+def create_charges_table(connection):
+    with connection:
+        connection.execute(
+            'CREATE TABLE IF NOT EXISTS charges (charge_id INTEGER PRIMARY KEY, unit_id INTEGER, start_date TIMESTAMP, type TEXT, amount NUM, due_dom INTEGER, description TEXT, end_date TIMESTAMP, FOREIGN KEY (unit_id) REFERENCES units (unit_id));')
+
+
+def drop_charges_table(connection):
+    with connection:
+        connection.execute('DROP TABLE IF EXISTS charges;')
