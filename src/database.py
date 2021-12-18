@@ -37,7 +37,7 @@ def drop_units_table(connection):
 def create_leases_table(connection):
     with connection:
         connection.execute(
-            'CREATE TABLE IF NOT EXISTS leases (lease_id INTEGER PRIMARY KEY, unit_id INTEGER, created_time TIMESTAMP, start_date TIMESTAMP, end_date TIMESTAMP, end_date_on_contract TIMESTAMP, tenant TEXT, original_monthly_rent NUM, current_monthly_rent NUM, maximum_annual_rent_increase NUM, rent_due_date INTEGER, deposit NUM,FOREIGN KEY (unit_id) REFERENCES units (unit_id));')
+            'CREATE TABLE IF NOT EXISTS leases (lease_id INTEGER PRIMARY KEY, unit_id INTEGER, created_time TIMESTAMP, start_date TIMESTAMP, end_date TIMESTAMP, end_date_on_contract TIMESTAMP, tenant TEXT, contract_rent NUM, maximum_annual_rent_increase NUM, rent_due_date INTEGER, deposit NUM,FOREIGN KEY (unit_id) REFERENCES units (unit_id));')
 
 
 def drop_leases_table(connection):

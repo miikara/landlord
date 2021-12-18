@@ -1,7 +1,7 @@
 import datetime
 
 class Lease:
-    def __init__(self, unit_id ,start_date, end_date_on_contract, tenant, original_monthly_rent, maximum_annual_rent_increase, rent_due_date, deposit):
+    def __init__(self, unit_id ,start_date, end_date_on_contract, tenant, contract_rent, maximum_annual_rent_increase, rent_due_date, deposit):
         """
         Class representing a lease contract for a unit between the user and a tenant
         
@@ -24,8 +24,7 @@ class Lease:
         self.end_date = None
         self.end_date_on_contract = end_date_on_contract
         self.tenant = tenant
-        self.original_monthly_rent = original_monthly_rent
-        self.current_monthly_rent = original_monthly_rent
+        self.contract_rent = contract_rent
         self.maximum_annual_rent_increase = maximum_annual_rent_increase
         self.rent_due_date = rent_due_date
         self.deposit = deposit

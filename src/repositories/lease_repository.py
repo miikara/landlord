@@ -12,8 +12,8 @@ class LeaseRepository:
         """Function allows service to add a new lease to database"""
         conn = self._connection
         with conn:
-            conn.execute('INSERT INTO leases (unit_id, created_time, start_date, end_date, end_date_on_contract, tenant, original_monthly_rent, current_monthly_rent, maximum_annual_rent_increase, rent_due_date, deposit) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
-                         (lease.unit_id, lease.created_time, lease.start_date, lease.end_date, lease.end_date_on_contract, lease.tenant, lease.original_monthly_rent, lease.current_monthly_rent, lease.maximum_annual_rent_increase, lease.rent_due_date, lease.deposit))
+            conn.execute('INSERT INTO leases (unit_id, created_time, start_date, end_date, end_date_on_contract, tenant, contract_rent, maximum_annual_rent_increase, rent_due_date, deposit) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
+                         (lease.unit_id, lease.created_time, lease.start_date, lease.end_date, lease.end_date_on_contract, lease.tenant, lease.contract_rent, lease.maximum_annual_rent_increase, lease.rent_due_date, lease.deposit))
             conn.commit()
 
     def get_all_leases(self):
