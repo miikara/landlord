@@ -52,13 +52,13 @@ class InsertLeasesScreen:
         self._unit_id_field_input = Entry(master=self._frame)      
         start_date_label = Label(master=self._frame, text='Lease start date')
         self._start_date_field_input = Calendar(self._frame, selectmode='day', 
-            year=this_year, day=1, month=1, date_pattern='dd/MM/yyyy')
+            year=this_year, day=1, month=1, date_pattern='YYYY-MM-DD')
         end_date_on_contract_label = Label(master=self._frame, text='Lease contract end date')
         self._end_date_on_contract_field_input = Calendar(self._frame, selectmode='day', 
-            year=this_year, day=1, month=1, date_pattern='dd/MM/yyyy')
+            year=this_year, day=1, month=1, date_pattern='YYYY-MM-DD')
         tenant_label = Label(master=self._frame, text='Tenant name')
         self._tenant_field_input = Entry(master=self._frame)   
-        original_monthly_rent_label = Label(master=self._frame, text='Monthly rent')
+        original_monthly_rent_label = Label(master=self._frame, text='Monthly rent on contract')
         self._original_monthly_rent_field_input = Entry(master=self._frame) 
         maximum_annual_rent_increase_label = Label(master=self._frame, text='Maximum annual rent increase (%)')
         self._maximum_annual_rent_increase_field_input = Entry(master=self._frame) 

@@ -35,6 +35,15 @@ class LeaseRepository:
             results = list(cursor)
         return results
 
+    def get_latest_start_date_active_lease(self, unit_id):
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'WITH lease_data AS (SELECT * FROM leases WHERE end_date IS NULL OR end_date > DATE()) SELECT * FROM lease_data WHERE unit_id = ? AND end_date_on_contract > DATE() ORDER BY start_date DESC LIMIT 1;', (unit_id, ))
+            result = cursor.fetchone()
+        return result
+
     def get_users_leases(self, user):
         """Function allows service to get all leases as a list of tuples for a specific user object"""
         conn = self._connection
@@ -44,22 +53,13 @@ class LeaseRepository:
                 'SELECT * FROM leases INNER JOIN units ON leases.unit_id = units.unit_id WHERE units.username = ?;', (user.username, ))
             results = list(cursor)
         return results
-
-    def set_current_rent(self, lease, new_rent):
-        """Function sets lease's current rent to input given with new_rent"""
-        conn = self._connection
-        with conn:
-            conn.execute('UPDATE leases SET current_monthly_rent = ? WHERE lease_id = ?;',
-                         (new_rent, lease.lease_id))
-            conn.commit()
     
-    def end_lease(self, lease):
-        """Function sets lease's actual end date to current date"""
+    def end_lease(self, lease_id, end_date):
+        """Function sets lease id's end date to chosen date. End date on contract remains the same"""
         conn = self._connection
-        date_to_insert = datetime.datetime.now()
         with conn:
-            conn.execute('UPDATE leases SET current_monthly_rent = ? WHERE lease_id = ?;',
-                         (date_to_insert, lease.lease_id))
+            conn.execute('UPDATE leases SET end_date = ? WHERE lease_id = ?;',
+                         (end_date, lease_id))
             conn.commit()
  
 

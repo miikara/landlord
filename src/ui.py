@@ -4,6 +4,7 @@ from ui.menu_screen import MenuScreen
 from ui.insert_units_screen import InsertUnitsScreen
 from ui.insert_leases_screen import InsertLeasesScreen
 from ui.insert_charges_screen import InsertChargesScreen
+from ui.insert_rents_screen import InsertRentsScreen
 from ui.get_statistics_screen import StatisticsScreen
 from tkinter import *
 
@@ -37,7 +38,7 @@ class UI:
 
     def show_menu_screen(self):
         self.hide_view()
-        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen, self.show_insert_units_screen, self.show_insert_leases_screen, self.show_insert_charges_screen, self.show_statistics_screen)
+        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen, self.show_insert_units_screen, self.show_insert_leases_screen, self.show_insert_charges_screen, self.show_insert_rents_screen, self.show_statistics_screen)
         self._current_view.pack()
 
     def show_insert_units_screen(self):
@@ -55,6 +56,11 @@ class UI:
         self._current_view = InsertChargesScreen(self._root, self.show_insert_charges_screen, self.show_menu_screen)
         self._current_view.pack()
 
+    def show_insert_rents_screen(self):
+        self.hide_view()
+        self._current_view = InsertRentsScreen(self._root, self.show_insert_rents_screen, self.show_menu_screen)
+        self._current_view.pack()
+
     def show_statistics_screen(self):
         self.hide_view()
         self._current_view = StatisticsScreen(self._root, self.show_statistics_screen, self.show_menu_screen)
@@ -63,7 +69,7 @@ class UI:
 
 window = Tk()
 window.title("LANDLORD APP")
-window.geometry('500x300')
+window.geometry('1000x700')
 running_interface = UI(window)
 running_interface.initialize()
 window.mainloop()
