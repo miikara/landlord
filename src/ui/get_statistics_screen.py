@@ -64,8 +64,8 @@ class StatisticsScreen:
         self._tenant_name.set(value=str(tenant))
 
     def get_all_statistics(self):
-        self.get_selected_unit_id() # Asettaa id:n oikein
-        self.get_latest_tenant() # Asettaa tenantin nimen
+        self.get_selected_unit_id()
+        self.get_latest_tenant()
 
     def initialize(self):
         self._frame = Frame(master=self._root)

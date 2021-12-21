@@ -37,7 +37,7 @@ class RentRepository:
         return result
  
     def get_unit_ids_latest_rent_id(self, unit_id):
-        """Function allows service to get the latest rent of a specific unit id as a number"""
+        """Function allows service to get the latest rent id of a specific unit id as a number"""
         conn = self._connection
         with conn:
             cursor = conn.cursor()
@@ -49,6 +49,20 @@ class RentRepository:
             else:
                 result_rent_id = 0
         return result_rent_id
+
+    def get_unit_ids_latest_rent_amount(self, unit_id):
+        """Function allows service to get the latest rent amount of a specific unit id as a number"""
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT rents.rent_id, rents.start_date, rents.amount, rents.due_dom, rents.end_date FROM rents INNER JOIN leases ON rents.lease_id = leases.lease_id WHERE leases.unit_id = ? ORDER BY start_date DESC LIMIT 1;', (unit_id, ))
+            result = cursor.fetchone()
+            if result is not None:
+                result_rent_amount = result[3]
+            else:
+                result_rent_amount = 0
+        return result_rent_amount
 
     def set_rent_id_end_date(self, rent_id, end_date):
         """Function sets rent ids end date to given date"""

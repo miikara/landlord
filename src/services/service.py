@@ -102,6 +102,14 @@ class LandlordService:
         result_rent_id = self._rent_repository.get_unit_ids_latest_rent_id(chosen_unit_id)
         return result_rent_id
 
+    def get_net_operating_income(self, chosen_unit_id):
+        pass
+
+    def get_cap_rate(self, chosen_unit_id, months=12, purchase_tax_rate=2, include_sewage=False):
+        annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * months
+        annual_charges = 0
+        purchase_price = 0 * (1+purchase_tax_rate)
+
     def end_rent(self, chosen_rent_id, chosen_date):
         self._rent_repository.set_rent_id_end_date(chosen_rent_id, chosen_date)
 
