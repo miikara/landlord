@@ -35,7 +35,33 @@ class LeaseRepository:
             results = list(cursor)
         return results
 
+    def get_latest_created_active_lease_id(self, unit_id):
+        """Function to get latest active lease_id. Used for creation of the initial rent in the lease creation process.
+        
+        Args:
+            unit_id
+        
+        Returns:
+            Lease_id as an integer."""
+
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'WITH lease_data AS (SELECT * FROM leases WHERE end_date IS NULL OR end_date > DATE()) SELECT * FROM lease_data WHERE unit_id = ? AND end_date_on_contract > DATE() ORDER BY lease_id DESC LIMIT 1;', (unit_id, ))
+            result = cursor.fetchone()
+            lease_id = int(result[0])
+        return lease_id
+
     def get_latest_start_date_active_lease(self, unit_id):
+        """Function to get latest active lease. Used for latest tenant information in statistics
+        
+        Args:
+            unit_id
+        
+        Returns:
+            Lease's data as a list"""
+
         conn = self._connection
         with conn:
             cursor = conn.cursor()

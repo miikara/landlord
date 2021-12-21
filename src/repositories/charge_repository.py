@@ -26,15 +26,19 @@ class ChargeRepository:
             results = list(cursor)
         return results
 
-    def get_units_latest_maintenance_charge(self, unit):
-        """Function allows service to get the latest recurring maintenance charge of a specific unit as a number"""
+    def get_unit_ids_latest_maintenance_charge_amount(self, unit_id):
+        """Function allows service to get the latest recurring maintenance charge amount of a specific unit id as a float"""
         conn = self._connection
         with conn:
             cursor = conn.cursor()
             cursor.execute(
-                'SELECT * FROM charges WHERE charges.description = "maintenance" AND charges.type = "recurring" AND charges.unit_id = ? ORDER BY start_date DESC LIMIT 1;', (unit.unit_id, ))
+                'SELECT amount FROM charges WHERE charges.description = "maintenance" AND charges.type = "recurring" AND charges.unit_id = ? ORDER BY start_date DESC LIMIT 1;', (unit_id, ))
             result = cursor.fetchone()
-        return result
+            if result is not None:
+                charge_amount = float(result[0])
+            else:
+                charge_amount = 0.0
+        return charge_amount
  
     def get_unit_ids_latest_maintenance_charge_id(self, unit_id):
         """Function allows service to get the latest recurring maintenance charge of a specific unit id as a number"""

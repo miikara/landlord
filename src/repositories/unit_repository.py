@@ -34,6 +34,17 @@ class UnitRepository:
             results = list(cursor)
         return results
 
+    def get_unit_ids_purchase_price(self, unit_id):
+        """Function allows service to get pre-selected data stored for all units as a list of tuples for a specific user object"""
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT purchase_price FROM units WHERE unit_id = ?;', (unit_id, ))
+            result = cursor.fetchone()
+            purchase_price = float(result[0])
+        return purchase_price
+
     def sell_unit(self, unit):
         """Function sets unit's owned status to False"""
         conn = self._connection

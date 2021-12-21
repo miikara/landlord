@@ -16,5 +16,6 @@
 | 13.12.        | Main menu, unit database operations, displaying results in tkinter | 7.5
 | 14.12.        | Lease entity| 4
 | 17.12.        | Charge entity, Clickbutton options in ui, additions to unit, rental yield | 6
-| TOTAL        |  | 60
+| 21.12.        | Unit statistics calculations, tkinter further development | 6
+| TOTAL        |  | 66
 

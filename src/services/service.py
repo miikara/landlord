@@ -93,7 +93,7 @@ class LandlordService:
 
     def create_rent(self, chosen_unit_id, chosen_start_date, chosen_amount, chosen_due_dom):
         """This function creates a rent to database based on a Rent object where the end date is None (null in database) and returns the Rent object"""
-        chosen_lease_id = self._lease_repository.get_unit_ids_latest_lease_id(chosen_unit_id)
+        chosen_lease_id = self._lease_repository.get_latest_created_active_lease_id(chosen_unit_id)
         rent_to_create = Rent(lease_id=chosen_lease_id, start_date=chosen_start_date, amount=chosen_amount, due_dom=chosen_due_dom)
         rent = self._rent_repository.add_rent_to_database(rent_to_create)
         return rent_to_create
@@ -102,13 +102,18 @@ class LandlordService:
         result_rent_id = self._rent_repository.get_unit_ids_latest_rent_id(chosen_unit_id)
         return result_rent_id
 
-    def get_net_operating_income(self, chosen_unit_id):
-        pass
+    def get_noi(self, chosen_unit_id, months=12, purchase_tax_rate=2, include_sewage=False):
+        annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * months
+        annual_charges = self._charge_repository.get_unit_ids_latest_maintenance_charge_amount(chosen_unit_id) * 12
+        noi = (annual_rent - annual_charges)
+        return noi
 
     def get_cap_rate(self, chosen_unit_id, months=12, purchase_tax_rate=2, include_sewage=False):
         annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * months
-        annual_charges = 0
-        purchase_price = 0 * (1+purchase_tax_rate)
+        annual_charges = self._charge_repository.get_unit_ids_latest_maintenance_charge_amount(chosen_unit_id) * 12
+        purchase_price = self._unit_repository.get_unit_ids_purchase_price(chosen_unit_id) * (1+purchase_tax_rate/100)
+        cap_rate = (annual_rent - annual_charges) / purchase_price
+        return cap_rate
 
     def end_rent(self, chosen_rent_id, chosen_date):
         self._rent_repository.set_rent_id_end_date(chosen_rent_id, chosen_date)

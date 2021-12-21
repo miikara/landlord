@@ -42,7 +42,7 @@ class RentRepository:
         with conn:
             cursor = conn.cursor()
             cursor.execute(
-                'SELECT rents.rent_id, rents.start_date, rents.amount, rents.due_dom, rents.end_date FROM rents INNER JOIN leases ON rents.lease_id = leases.lease_id WHERE leases.unit_id = ? ORDER BY start_date DESC LIMIT 1;', (unit_id, ))
+                'SELECT rents.rent_id, rents.start_date, rents.amount, rents.due_dom, rents.end_date FROM rents INNER JOIN leases ON rents.lease_id = leases.lease_id WHERE leases.unit_id = ? ORDER BY rents.start_date DESC LIMIT 1;', (unit_id, ))
             result = cursor.fetchone()
             if result is not None:
                 result_rent_id = result[0]
@@ -56,13 +56,13 @@ class RentRepository:
         with conn:
             cursor = conn.cursor()
             cursor.execute(
-                'SELECT rents.rent_id, rents.start_date, rents.amount, rents.due_dom, rents.end_date FROM rents INNER JOIN leases ON rents.lease_id = leases.lease_id WHERE leases.unit_id = ? ORDER BY start_date DESC LIMIT 1;', (unit_id, ))
+                'SELECT rents.amount FROM rents INNER JOIN leases ON rents.lease_id = leases.lease_id WHERE leases.unit_id = ? ORDER BY rents.start_date DESC LIMIT 1;', (unit_id, ))
             result = cursor.fetchone()
             if result is not None:
-                result_rent_amount = result[3]
+                rent_amount = float(result[0])
             else:
-                result_rent_amount = 0
-        return result_rent_amount
+                rent_amount = 0.0
+        return rent_amount
 
     def set_rent_id_end_date(self, rent_id, end_date):
         """Function sets rent ids end date to given date"""

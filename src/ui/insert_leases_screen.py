@@ -42,6 +42,7 @@ class InsertLeasesScreen:
         chosen_rent_due_date = self._rent_due_date_field_input.get()
         chosen_deposit = self._deposit_field_input.get()
         landlord_service.create_lease(chosen_unit_id, chosen_start_date, chosen_end_date_on_contract, chosen_tenant, chosen_original_monthly_rent, chosen_maximum_annual_rent_increase, chosen_rent_due_date, chosen_deposit)
+        landlord_service.create_rent(chosen_unit_id, chosen_start_date, chosen_original_monthly_rent, chosen_rent_due_date) # Tämä ongelma
         self._main_menu()
 
     def initialize(self):
@@ -86,7 +87,6 @@ class InsertLeasesScreen:
         deposit_label.grid(pady=6, row=7, column=0)
         self._deposit_field_input.grid(pady=7, row=7, column=1)
 
-        # Action buttons
         create_lease_button = Button(
             master=self._frame,
             text='Add lease contract',
