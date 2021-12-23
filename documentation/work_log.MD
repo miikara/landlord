@@ -17,5 +17,6 @@
 | 14.12.        | Lease entity| 4
 | 17.12.        | Charge entity, Clickbutton options in ui, additions to unit, rental yield | 6
 | 21.12.        | Unit statistics calculations, tkinter further development | 6
-| TOTAL        |  | 66
+| 23.12.        | Matplotlib, unit count queries and modifying unit entity & repo | 4
+| TOTAL        |  | 70
 
