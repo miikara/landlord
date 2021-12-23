@@ -1,6 +1,5 @@
-from tkinter import *
-from tkinter.ttk import *
-from tkinter import messagebox
+import tkinter as tk
+from tkinter import ttk
 from services.service import landlord_service
 
 
@@ -20,7 +19,7 @@ class MenuScreen:
         self.initialize()
 
     def pack(self):
-        self._frame.pack()
+        self._frame.pack(fill=tk.constants.X)
 
     def destroy(self):
         self._frame.destroy()
@@ -46,21 +45,37 @@ class MenuScreen:
         self._go_to_sell_units_screen()
 
     def initialize(self):
-        self._frame = Frame(master=self._root)
-        user_label = Label(master=self._frame, text=f'Logged in as {self._logged_in_user}')
-        logout_button = Button(master=self._frame, text='Logout', command=self.logout)
-        insert_unit_button = Button(master=self._frame, text='Insert unit', command=self._go_to_insert_units_screen)
-        insert_lease_button = Button(master=self._frame, text='Insert lease', command=self._go_to_insert_leases_screen)
-        insert_charge_button = Button(master=self._frame, text='Insert charge', command=self._go_to_insert_charges_screen)
-        insert_rent_button = Button(master=self._frame, text='Insert change in rent', command=self._go_to_insert_rents_screen)
-        sell_unit_button = Button(master=self._frame, text='Mark unit as sold', command=self._go_to_sell_units_screen)
-        get_statistics_button = Button(master=self._frame, text='Get statistics', command=self._go_to_statistics_screen)
+        self._frame = tk.Frame(master=self._root)
 
-        user_label.grid(row=1, column=1)
-        insert_unit_button.grid(row=2, column=1)
-        insert_lease_button.grid(row=3, column=1)
-        insert_charge_button.grid(row=4, column=1)
-        insert_rent_button.grid(row=5, column=1)
-        sell_unit_button.grid(row=6, column=1)
-        get_statistics_button.grid(row=7, column=1)
-        logout_button.grid(row=8, column=1)
+        self._frame.grid_columnconfigure(0, weight=2)
+        self._frame.grid_columnconfigure(1, weight=2)
+
+        user_label = tk.Label(master=self._frame, text=f'Logged in as {self._logged_in_user}  ', anchor='e')
+        logout_button = tk.Button(master=self._frame, text='Logout', command=self.logout)
+
+        manage_portfolio_label = tk.Label(master=self._frame, text='Manage portfolio information:',borderwidth=3, relief='ridge')
+        portfolio_statistics_label = tk.Label(master=self._frame, text='Portfolio statistcs:',borderwidth=3, relief='ridge')
+
+        insert_unit_button = tk.Button(master=self._frame, text='Insert unit', command=self._go_to_insert_units_screen)
+        insert_lease_button = tk.Button(master=self._frame, text='Insert lease', command=self._go_to_insert_leases_screen)
+        insert_charge_button = tk.Button(master=self._frame, text='Insert charge', command=self._go_to_insert_charges_screen)
+        insert_rent_button = tk.Button(master=self._frame, text='Insert change in rent', command=self._go_to_insert_rents_screen)
+        sell_unit_button = tk.Button(master=self._frame, text='Mark unit as sold', command=self._go_to_sell_units_screen)
+        get_statistics_button = tk.Button(master=self._frame, text='Get unit level statistics', command=self._go_to_statistics_screen)
+        get_total_statistics_button = tk.Button(master=self._frame, text='Get total portfolio statistics', command=self._go_to_statistics_screen)
+
+        user_label.grid(row=0, column=0, ipadx=15, ipady=15, sticky="nsew")
+        logout_button.grid(row=0, column=1, columnspan=2, sticky='w')
+
+        manage_portfolio_label.grid(row=1, column=0, ipadx=15, ipady=15, sticky="nsew")
+        portfolio_statistics_label.grid(row=1, column=1, ipadx=15, ipady=15, sticky="nsew")
+
+        insert_unit_button.grid(row=2, column=0)
+        insert_lease_button.grid(row=3, column=0)
+        insert_charge_button.grid(row=4, column=0)
+        insert_rent_button.grid(row=5, column=0)
+        sell_unit_button.grid(row=6, column=0)
+        get_statistics_button.grid(row=2, column=1)
+        get_total_statistics_button.grid(row=3, column=1)
+
+
