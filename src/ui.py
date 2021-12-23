@@ -5,6 +5,7 @@ from ui.insert_units_screen import InsertUnitsScreen
 from ui.insert_leases_screen import InsertLeasesScreen
 from ui.insert_charges_screen import InsertChargesScreen
 from ui.insert_rents_screen import InsertRentsScreen
+from ui.sell_units_screen import SellUnitsScreen
 from ui.get_statistics_screen import StatisticsScreen
 from tkinter import *
 
@@ -38,7 +39,7 @@ class UI:
 
     def show_menu_screen(self):
         self.hide_view()
-        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen, self.show_insert_units_screen, self.show_insert_leases_screen, self.show_insert_charges_screen, self.show_insert_rents_screen, self.show_statistics_screen)
+        self._current_view = MenuScreen(self._root, self.show_menu_screen, self.show_login_screen, self.show_insert_units_screen, self.show_insert_leases_screen, self.show_insert_charges_screen, self.show_insert_rents_screen, self.show_sell_units_screen, self.show_statistics_screen)
         self._current_view.pack()
 
     def show_insert_units_screen(self):
@@ -59,6 +60,11 @@ class UI:
     def show_insert_rents_screen(self):
         self.hide_view()
         self._current_view = InsertRentsScreen(self._root, self.show_insert_rents_screen, self.show_menu_screen)
+        self._current_view.pack()
+
+    def show_sell_units_screen(self):
+        self.hide_view()
+        self._current_view = SellUnitsScreen(self._root, self.show_sell_units_screen, self.show_menu_screen)
         self._current_view.pack()
 
     def show_statistics_screen(self):

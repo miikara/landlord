@@ -25,7 +25,7 @@ class UnitRepository:
         return results
 
     def get_users_units(self, user):
-        """Function allows service to get pre-selected data stored for all units as a list of tuples for a specific user object"""
+        """Function allows service to get all pre-selected data stored for all units as a list of tuples for a specific user object"""
         conn = self._connection
         with conn:
             cursor = conn.cursor()
@@ -33,6 +33,17 @@ class UnitRepository:
                 'SELECT unit_id, address, location, construction_year, square_meters, floor, purchase_price FROM units WHERE owned = 1 AND username = ?;', (user.username, ))
             results = list(cursor)
         return results
+
+    def get_users_unit_ids(self, user):
+        """Function allows service to get a list of unit ids for a specific user object"""
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT unit_id FROM units WHERE owned = 1 AND username = ?;', (user.username, ))
+            results = list(cursor)
+            result_list = [i[0] for i in results]
+        return result_list
 
     def get_unit_ids_purchase_price(self, unit_id):
         """Function allows service to get pre-selected data stored for all units as a list of tuples for a specific user object"""
@@ -45,20 +56,12 @@ class UnitRepository:
             purchase_price = float(result[0])
         return purchase_price
 
-    def sell_unit(self, unit):
+    def sell_unit(self, unit_id):
         """Function sets unit's owned status to False"""
         conn = self._connection
         with conn:
-            conn.execute('UPDATE units SET owned = 0 WHERE address = ?;',
-                         (unit.address, ))
-            conn.commit()
-
-    def acquire_unit(self, unit):
-        """Function sets unit's owned status to True"""
-        conn = self._connection
-        with conn:
-            conn.execute('UPDATE units SET owned = 1 WHERE address = ?;',
-                         (unit.address, ))
+            conn.execute('UPDATE units SET owned = 0 WHERE unit_id = ?;',
+                         (unit_id, ))
             conn.commit()
 
 unit_repository_used = UnitRepository(connection=db.get_connection())
