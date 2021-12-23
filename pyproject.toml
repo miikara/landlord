@@ -12,6 +12,8 @@ mock = "^4.0.3"
 DateTime = "^4.3"
 tkcalendar = "^1.6.1"
 Babel = "^2.9.1"
+matplotlib = "^3.5.1"
+python-dateutil = "^2.8.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

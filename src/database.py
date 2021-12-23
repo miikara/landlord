@@ -29,7 +29,7 @@ def create_units_table(connection):
             'CREATE TABLE IF NOT EXISTS units \
             (unit_id INTEGER PRIMARY KEY, username TEXT, address TEXT, location TEXT, \
             construction_year INTEGER, sewage_year INTEGER, facade_year INTEGER, windows_year INTEGER, elevator_year INTEGER, has_elevator INTEGER, \
-            square_meters NUM, floor INTEGER, asking_price NUM, purchase_price NUM, unit_date TIMESTAMP, owned INTEGER, \
+            square_meters NUM, floor INTEGER, asking_price NUM, purchase_price NUM, unit_date TIMESTAMP, owned INTEGER, acquired_date TIMESTAMP, sold_date TIMESTAMP, \
             FOREIGN KEY (username) REFERENCES users (username));')
 
 

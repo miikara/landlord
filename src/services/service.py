@@ -41,20 +41,20 @@ class LandlordService:
         self._user_repository.create_user_to_database(user_to_create)
         return user_to_create
 
-    def get_user(self, username):
-        user = self._user_repository.get_user(username)
+    def get_user(self, chosen_username):
+        user = self._user_repository.get_user(chosen_username)
         return user
 
     def get_logged_in_user(self):
         return self._user
 
-    def get_password(self, username):
-        password = self._user_repository.get_password(username)
+    def get_password(self, chosen_username):
+        password = self._user_repository.get_password(chosen_username)
         return password
 
-    def create_unit(self, chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price):
+    def create_unit(self, chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price, chosen_acquired_date):
         username_used = str(self._user)
-        unit_to_create = Unit(username_used, chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price)
+        unit_to_create = Unit(username_used, chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price, chosen_acquired_date)
         self._unit_repository.add_unit_to_database(unit_to_create)
         return unit_to_create
 
@@ -107,21 +107,25 @@ class LandlordService:
         result_rent_id = self._rent_repository.get_unit_ids_latest_rent_id(chosen_unit_id)
         return result_rent_id
 
-    def get_noi(self, chosen_unit_id, months=12, purchase_tax_rate=2, include_sewage=False):
-        annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * months
+    def end_rent(self, chosen_rent_id, chosen_date):
+        self._rent_repository.set_rent_id_end_date(chosen_rent_id, chosen_date)
+
+    def get_noi(self, chosen_unit_id, chosen_months=12):
+        annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * chosen_months
         annual_charges = self._charge_repository.get_unit_ids_latest_maintenance_charge_amount(chosen_unit_id) * 12
         noi = (annual_rent - annual_charges)
         return noi
 
-    def get_cap_rate(self, chosen_unit_id, months=12, purchase_tax_rate=2, include_sewage=False):
-        annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * months
+    def get_cap_rate(self, chosen_unit_id, chosen_months=12, chosen_purchase_tax_rate=2):
+        annual_rent = self._rent_repository.get_unit_ids_latest_rent_amount(chosen_unit_id) * chosen_months
         annual_charges = self._charge_repository.get_unit_ids_latest_maintenance_charge_amount(chosen_unit_id) * 12
-        purchase_price = self._unit_repository.get_unit_ids_purchase_price(chosen_unit_id) * (1+purchase_tax_rate/100)
+        purchase_price = self._unit_repository.get_unit_ids_purchase_price(chosen_unit_id) * (1+chosen_purchase_tax_rate/100)
         cap_rate = (annual_rent - annual_charges) / purchase_price
         return cap_rate
 
-    def end_rent(self, chosen_rent_id, chosen_date):
-        self._rent_repository.set_rent_id_end_date(chosen_rent_id, chosen_date)
+    def get_units_history(self, chosen_username):
+        dates, units = self._unit_repository.get_unit_count_time_series(chosen_username)
+        return dates, units
 
     def login(self, username, password):
         user_attempting_login = User(username, password)

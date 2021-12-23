@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from services.service import landlord_service
+import matplotlib.pyplot as plt
 
 
 class MenuScreen:
@@ -44,6 +45,12 @@ class MenuScreen:
     def sell_units(self):
         self._go_to_sell_units_screen()
 
+    def graph_units(self):
+        current_username = str(self._logged_in_user.username)
+        dates, units = landlord_service.get_units_history(current_username)
+        plt.plot(dates, units) # change
+        plt.show()
+
     def initialize(self):
         self._frame = tk.Frame(master=self._root)
 
@@ -62,7 +69,7 @@ class MenuScreen:
         insert_rent_button = tk.Button(master=self._frame, text='Insert change in rent', command=self._go_to_insert_rents_screen)
         sell_unit_button = tk.Button(master=self._frame, text='Mark unit as sold', command=self._go_to_sell_units_screen)
         get_statistics_button = tk.Button(master=self._frame, text='Get unit level statistics', command=self._go_to_statistics_screen)
-        get_total_statistics_button = tk.Button(master=self._frame, text='Get total portfolio statistics', command=self._go_to_statistics_screen)
+        graph_units_button = tk.Button(master=self._frame, text='Graph portfolio unit amount', command=self.graph_units)
 
         user_label.grid(row=0, column=0, ipadx=15, ipady=15, sticky="nsew")
         logout_button.grid(row=0, column=1, columnspan=2, sticky='w')
@@ -76,6 +83,6 @@ class MenuScreen:
         insert_rent_button.grid(row=5, column=0)
         sell_unit_button.grid(row=6, column=0)
         get_statistics_button.grid(row=2, column=1)
-        get_total_statistics_button.grid(row=3, column=1)
+        graph_units_button.grid(row=3, column=1)
 
 

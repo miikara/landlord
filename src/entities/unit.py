@@ -1,7 +1,7 @@
 import datetime
 
 class Unit:
-    def __init__(self, username, address, location, construction_year, sewage_year, facade_year, windows_year, elevator_year, has_elevator=1, square_meters=0, floor=1, asking_price=0, purchase_price=0):
+    def __init__(self, username, address, location, construction_year, sewage_year, facade_year, windows_year, elevator_year, has_elevator=1, square_meters=0, floor=1, asking_price=0, purchase_price=0, acquired_date = None, sold_date = None):
         """
         Class representing a unit acquired by the user
 
@@ -30,6 +30,8 @@ class Unit:
         self.asking_price = asking_price
         self.purchase_price = purchase_price
         self.unit_date = datetime.datetime.now()
+        self.acquired_date = acquired_date
+        self.sold_date = sold_date
         self.owned = 1
 
     def __str__(self):

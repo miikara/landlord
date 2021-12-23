@@ -1,4 +1,6 @@
 import database as db
+import datetime
+from dateutil.relativedelta import relativedelta
 from entities.unit import Unit
 
 class UnitRepository:
@@ -11,18 +13,9 @@ class UnitRepository:
         """Function allows service to add a new unit to database"""
         conn = self._connection
         with conn:
-            conn.execute('INSERT INTO units (username, address, location, construction_year, sewage_year, facade_year, windows_year, elevator_year, has_elevator, square_meters, floor, asking_price, purchase_price, unit_date, owned) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
-                         (unit.username, unit.address, unit.location, unit.construction_year, unit.sewage_year, unit.facade_year, unit.windows_year, unit.elevator_year, unit.has_elevator, unit.square_meters, unit.floor, unit.asking_price, unit.purchase_price, unit.unit_date, unit.owned))
+            conn.execute('INSERT INTO units (username, address, location, construction_year, sewage_year, facade_year, windows_year, elevator_year, has_elevator, square_meters, floor, asking_price, purchase_price, unit_date, owned, acquired_date, sold_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
+                         (unit.username, unit.address, unit.location, unit.construction_year, unit.sewage_year, unit.facade_year, unit.windows_year, unit.elevator_year, unit.has_elevator, unit.square_meters, unit.floor, unit.asking_price, unit.purchase_price, unit.unit_date, unit.owned, unit.acquired_date, unit.sold_date))
             conn.commit()
-
-    def get_all_units(self):
-        """Function allows service to get all data stored for all units as a list of tuples"""
-        conn = self._connection
-        with conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM units;')
-            results = list(cursor)
-        return results
 
     def get_users_units(self, user):
         """Function allows service to get all pre-selected data stored for all units as a list of tuples for a specific user object"""
@@ -33,6 +26,27 @@ class UnitRepository:
                 'SELECT unit_id, address, location, construction_year, square_meters, floor, purchase_price FROM units WHERE owned = 1 AND username = ?;', (user.username, ))
             results = list(cursor)
         return results
+
+    def get_unit_count_for_date(self, username, date):
+        """Function calculates to amount of units for a user on a given date for a specific username"""
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'WITH data AS (SELECT * FROM units WHERE acquired_date <= ? AND sold_date IS NULL OR sold_date >= ?) SELECT username, COUNT(unit_id) FROM data GROUP BY username HAVING username = ?;', (date, date, username))
+            result = cursor.fetchone()
+            unit_count = result[1]
+        return unit_count
+
+    def get_unit_count_time_series(self, username, end_date=datetime.datetime.today().replace(day=1), months_back = 7):
+        dates = []
+        unit_counts = []
+        for i in range(0, months_back):
+            unit_count = self.get_unit_count_for_date(username, end_date)
+            dates.append(end_date)
+            unit_counts.append(unit_count)
+            end_date = end_date - relativedelta(months=1)
+        return dates, unit_counts
 
     def get_users_unit_ids(self, user):
         """Function allows service to get a list of unit ids for a specific user object"""

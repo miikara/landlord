@@ -1,6 +1,8 @@
+import datetime
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import messagebox
+from tkcalendar import *
 from services.service import landlord_service
 
 
@@ -22,6 +24,7 @@ class InsertUnitsScreen:
         self._floor_field_input = None
         self._asking_price_field_input = None
         self._purchase_price_field_input = None
+        self._acquired_date_field_input = None
         self._logged_in_user = landlord_service.get_logged_in_user()
         self.initialize()
 
@@ -50,12 +53,15 @@ class InsertUnitsScreen:
         chosen_floor = self._floor_field_input.get()
         chosen_asking_price = self._asking_price_field_input.get()
         chosen_purchase_price = self._purchase_price_field_input.get()
+        chosen_acquired_date = self._acquired_date_field_input.get_date()
         landlord_service.create_unit(chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, 
-                                    chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price)
+                                    chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price, chosen_acquired_date)
         self._main_menu()
 
     def initialize(self):
         self._frame = Frame(master=self._root)
+        this_year = datetime.datetime.now().year
+
         address_label = Label(master=self._frame, text='Address')
         self._address_field_input = Entry(master=self._frame)
         location_label = Label(master=self._frame, text='Location')
@@ -80,6 +86,9 @@ class InsertUnitsScreen:
         self._asking_price_field_input = Entry(master=self._frame)
         purchase_price_label = Label(master=self._frame, text='Purchase price')
         self._purchase_price_field_input = Entry(master=self._frame)
+        acquired_date_label = Label(master=self._frame, text='Acquired date')
+        self._acquired_date_field_input = Calendar(self._frame, selectmode='day', 
+            year=this_year, day=1, month=1, date_pattern='YYYY-MM-DD')
 
         address_label.grid(pady=6, row=0, column=0)
         self._address_field_input.grid(pady=6, row=0, column=1)
@@ -104,6 +113,8 @@ class InsertUnitsScreen:
         self._asking_price_field_input.grid(pady=6, row=10, column=1)
         purchase_price_label.grid(pady=6, row=11, column=0)
         self._purchase_price_field_input.grid(pady=6, row=11, column=1)
+        acquired_date_label.grid(pady=6, row=12, column=0)
+        self._acquired_date_field_input.grid(pady=6, row=12, column=1)
 
         create_unit_button = Button(
             master=self._frame,
@@ -111,11 +122,11 @@ class InsertUnitsScreen:
             command=self.create_unit_to_database
         )
 
-        create_unit_button.grid(pady=6, row=12, column=1)
+        create_unit_button.grid(pady=6, row=13, column=1)
 
         return_to_menu_button = Button(
             master=self._frame, 
             text='Return to menu', 
             command=self._go_to_menu_screen)
 
-        return_to_menu_button.grid(pady=6, row=13, column=1)
+        return_to_menu_button.grid(pady=6, row=14, column=1)
