@@ -1,6 +1,7 @@
 import database as db
 from entities.lease import Lease
 import datetime
+from dateutil.relativedelta import relativedelta
 
 class LeaseRepository:
     """Lease repository class which manages the database operations for Lease class when user is logged in"""
@@ -79,6 +80,30 @@ class LeaseRepository:
                 'SELECT * FROM leases INNER JOIN units ON leases.unit_id = units.unit_id WHERE units.username = ?;', (user.username, ))
             results = list(cursor)
         return results
+
+    def get_lease_count_for_date(self, username, date):
+        """Function calculates to amount of units for a user on a given date for a specific username"""
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'WITH data AS (SELECT * FROM leases WHERE start_date <= ? AND  end_date_on_contract > ?) SELECT units.username, COUNT(data.lease_id) FROM data JOIN units ON data.unit_id = units.unit_id GROUP BY units.username HAVING units.username = ?;', (date, date, username))
+            result = cursor.fetchone()
+            if result is not None:
+                lease_count = result[1]
+            else:
+                lease_count = 0
+        return lease_count
+
+    def get_lease_count_time_series(self, username, end_date=datetime.datetime.today().replace(day=1), months_back = 24):
+        dates = []
+        lease_counts = []
+        for i in range(0, months_back):
+            lease_count = self.get_lease_count_for_date(username, end_date)
+            dates.append(end_date)
+            lease_counts.append(lease_count)
+            end_date = end_date - relativedelta(months=1)
+        return dates, lease_counts
     
     def end_lease(self, lease_id, end_date):
         """Function sets lease id's end date to chosen date. End date on contract remains the same"""

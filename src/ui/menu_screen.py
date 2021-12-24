@@ -51,10 +51,18 @@ class MenuScreen:
         current_username = str(self._logged_in_user.username)
         dates, units = landlord_service.get_units_history(current_username)
         plt.plot(dates, units)
-        plt.figure(num='Portfolio graph 1')
         plt.title('Portfolio size per month')
         plt.ylim(bottom=0)
         plt.ylabel('Amount of units')
+        plt.xlabel('Year & month')
+        plt.show()
+
+    def graph_occupancy(self):
+        current_username = str(self._logged_in_user.username)
+        dates, occupancies = landlord_service.get_occupancy_history(current_username)
+        plt.plot(dates, occupancies)
+        plt.title('Occupancy per month')
+        plt.ylabel('Occupancy')
         plt.xlabel('Year & month')
         plt.show()
 
@@ -77,6 +85,8 @@ class MenuScreen:
         sell_unit_button = tk.Button(master=self._frame, text='Mark unit as sold', command=self._go_to_sell_units_screen)
         get_statistics_button = tk.Button(master=self._frame, text='Get unit level statistics', command=self._go_to_statistics_screen)
         graph_units_button = tk.Button(master=self._frame, text='Graph portfolio unit amount', command=self.graph_units)
+        graph_occupancy_button = tk.Button(master=self._frame, text='Graph portfolio occupancy', command=self.graph_occupancy)
+
 
         user_label.grid(row=0, column=0, ipadx=15, ipady=15, sticky="nsew")
         logout_button.grid(row=0, column=1, columnspan=2, sticky='w')
@@ -91,5 +101,6 @@ class MenuScreen:
         sell_unit_button.grid(row=6, column=0)
         get_statistics_button.grid(row=2, column=1)
         graph_units_button.grid(row=3, column=1)
+        graph_occupancy_button.grid(row=4, column=1)
 
 

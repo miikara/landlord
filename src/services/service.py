@@ -127,6 +127,18 @@ class LandlordService:
         dates, units = self._unit_repository.get_unit_count_time_series(chosen_username)
         return dates, units
 
+    def get_lease_history(self, chosen_username):
+        dates, occupants = self._lease_repository.get_lease_count_time_series(chosen_username)
+        return dates, occupants
+
+    def get_occupancy_history(self, chosen_username):
+        dates, units = self._unit_repository.get_unit_count_time_series(chosen_username)
+        occupancy_dates, occupants = self._lease_repository.get_lease_count_time_series(chosen_username)
+        units = [int(i) for i in units]
+        occupants = [int(i) for i in occupants]
+        occupancies = [x/y if y!= 0 else 0 for x,y in zip(occupants,units)]
+        return dates, occupancies
+
     def login(self, username, password):
         user_attempting_login = User(username, password)
         self._user = user_attempting_login
