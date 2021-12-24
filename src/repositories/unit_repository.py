@@ -13,8 +13,8 @@ class UnitRepository:
         """Function allows service to add a new unit to database"""
         conn = self._connection
         with conn:
-            conn.execute('INSERT INTO units (username, address, location, construction_year, sewage_year, facade_year, windows_year, elevator_year, has_elevator, square_meters, floor, asking_price, purchase_price, unit_date, owned, acquired_date, sold_date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
-                         (unit.username, unit.address, unit.location, unit.construction_year, unit.sewage_year, unit.facade_year, unit.windows_year, unit.elevator_year, unit.has_elevator, unit.square_meters, unit.floor, unit.asking_price, unit.purchase_price, unit.unit_date, unit.owned, unit.acquired_date, unit.sold_date))
+            conn.execute('INSERT INTO units (username, address, location, construction_year, sewage_year, facade_year, windows_year, elevator_year, has_elevator, square_meters, floor, asking_price, purchase_price, acquired_date, sold_date, owned) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
+                         (unit.username, unit.address, unit.location, unit.construction_year, unit.sewage_year, unit.facade_year, unit.windows_year, unit.elevator_year, unit.has_elevator, unit.square_meters, unit.floor, unit.asking_price, unit.purchase_price, unit.acquired_date, unit.sold_date, unit.owned))
             conn.commit()
 
     def get_users_units(self, user):
@@ -33,12 +33,15 @@ class UnitRepository:
         with conn:
             cursor = conn.cursor()
             cursor.execute(
-                'WITH data AS (SELECT * FROM units WHERE acquired_date <= ? AND sold_date IS NULL OR sold_date >= ?) SELECT username, COUNT(unit_id) FROM data GROUP BY username HAVING username = ?;', (date, date, username))
+                'WITH data AS (SELECT * FROM units WHERE acquired_date <= ? AND  sold_date > ?) SELECT username, COUNT(unit_id) FROM data GROUP BY username HAVING username = ?;', (date, date, username))
             result = cursor.fetchone()
-            unit_count = result[1]
+            if result is not None:
+                unit_count = result[1]
+            else:
+                unit_count = 0
         return unit_count
 
-    def get_unit_count_time_series(self, username, end_date=datetime.datetime.today().replace(day=1), months_back = 7):
+    def get_unit_count_time_series(self, username, end_date=datetime.datetime.today().replace(day=1), months_back = 24):
         dates = []
         unit_counts = []
         for i in range(0, months_back):
@@ -76,6 +79,14 @@ class UnitRepository:
         with conn:
             conn.execute('UPDATE units SET owned = 0 WHERE unit_id = ?;',
                          (unit_id, ))
+            conn.commit()
+
+    def set_sold_date(self, sold_date, unit_id):
+        """Function sets unit's sold date to date provided"""
+        conn = self._connection
+        with conn:
+            conn.execute('UPDATE units SET sold_date = ? WHERE unit_id = ?;',
+                         (sold_date, unit_id))
             conn.commit()
 
 unit_repository_used = UnitRepository(connection=db.get_connection())

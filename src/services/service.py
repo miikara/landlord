@@ -11,8 +11,6 @@ from repositories.charge_repository import charge_repository_used
 from repositories.rent_repository import rent_repository_used
 
 conn = database.get_connection()
-if conn is not None:
-    print('Connection established to database from service module')
 
 database.create_users_table(conn)
 database.create_units_table(conn)
@@ -53,8 +51,9 @@ class LandlordService:
         return password
 
     def create_unit(self, chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price, chosen_acquired_date):
+        """Sold date and owned can not be chosen"""
         username_used = str(self._user)
-        unit_to_create = Unit(username_used, chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price, chosen_acquired_date)
+        unit_to_create = Unit(username=username_used, address=chosen_address, location=chosen_location, construction_year=chosen_construction_year, sewage_year=chosen_sewage_year, facade_year=chosen_facade_year, windows_year=chosen_windows_year, elevator_year=chosen_elevator_year, has_elevator=chosen_has_elevator, square_meters=chosen_square_meters, floor=chosen_floor, asking_price=chosen_asking_price, purchase_price=chosen_purchase_price, acquired_date=chosen_acquired_date, sold_date='2098-01-01', owned=1)
         self._unit_repository.add_unit_to_database(unit_to_create)
         return unit_to_create
 
@@ -62,10 +61,11 @@ class LandlordService:
         units = self._unit_repository.get_users_units(self._user)
         return units
 
-    def sell_unit(self, chosen_unit_id):
+    def sell_unit_and_set_sold_date(self, chosen_unit_id, chosen_sold_date):
         list_of_units = self._unit_repository.get_users_unit_ids(self._user)
         if int(chosen_unit_id) in list_of_units:
             self._unit_repository.sell_unit(chosen_unit_id)
+            self._unit_repository.set_sold_date(chosen_sold_date, chosen_unit_id)
 
     def create_lease(self, chosen_unit_id, chosen_start_date, chosen_end_date_on_contract, chosen_tenant, chosen_original_monthly_rent, chosen_maximum_annual_rent_increase, chosen_rent_due_date, chosen_deposit):
         lease_to_create = Lease(chosen_unit_id, chosen_start_date, chosen_end_date_on_contract, chosen_tenant, chosen_original_monthly_rent, chosen_maximum_annual_rent_increase, chosen_rent_due_date, chosen_deposit)

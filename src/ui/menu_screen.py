@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from services.service import landlord_service
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
+
 
 
 class MenuScreen:
@@ -48,7 +50,12 @@ class MenuScreen:
     def graph_units(self):
         current_username = str(self._logged_in_user.username)
         dates, units = landlord_service.get_units_history(current_username)
-        plt.plot(dates, units) # change
+        plt.plot(dates, units)
+        plt.figure(num='Portfolio graph 1')
+        plt.title('Portfolio size per month')
+        plt.ylim(bottom=0)
+        plt.ylabel('Amount of units')
+        plt.xlabel('Year & month')
         plt.show()
 
     def initialize(self):
