@@ -30,10 +30,11 @@ poetry run invoke lint
 ```
 
 **Documentation:** <br>
-[Requirements (vaatimusmäärittely)](https://github.com/miikara/landlord/blob/master/documentation/requirements.MD)<br>
-[Work log (työaikakirjanpito)](https://github.com/miikara/landlord/blob/master/documentation/work_log.MD)<br>
-[Architecture (arkkitehtuuri)](https://github.com/miikara/landlord/blob/master/documentation/architecture.MD)<br>
-[First release](https://github.com/miikara/landlord/releases/tag/viikko5)
+[Requirements](https://github.com/miikara/landlord/blob/master/documentation/requirements.MD)<br>
+[Work log](https://github.com/miikara/landlord/blob/master/documentation/work_log.MD)<br>
+[Architecture](https://github.com/miikara/landlord/blob/master/documentation/architecture.MD)<br>
+[Instructions](https://github.com/miikara/landlord/blob/master/documentation/instructions.MD)<br>
+[Releases](https://github.com/miikara/landlord/releases)
 
 **License:** MIT License <br>
 
