@@ -73,11 +73,11 @@ class InsertRentsScreen:
             rent_id_to_end = landlord_service.get_latest_rent_id(chosen_unit_id)
             landlord_service.end_rent(rent_id_to_end, chosen_start_date)
             landlord_service.create_rent(chosen_unit_id, chosen_start_date, chosen_amount, chosen_due_dom)
-            messagebox.showinfo(title='Success', message=f'Lease succesfully created')
+            messagebox.showinfo(title='Success', message=f'Rent succesfully created')
             self._main_menu()
         else:
             landlord_service.create_rent(chosen_unit_id, chosen_start_date, chosen_amount, chosen_due_dom)
-            messagebox.showinfo(title='Success', message=f'Lease succesfully created')
+            messagebox.showinfo(title='Success', message=f'Rent succesfully created')
             self._main_menu()
 
     def initialize(self):
