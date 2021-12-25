@@ -24,4 +24,5 @@ The application has (will have) six entities or classes:
 ## Sequence diagram for accunt creation
 
 The user can create an account from the signup screen with the following sequence:
+
 <img src="https://raw.githubusercontent.com/miikara/landlord/master/documentation/pictures/sequence_chart_sign_up.png">
