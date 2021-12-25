@@ -19,7 +19,7 @@ The application has (will have) six entities or classes:
 4. Rent, which represents a rent agreed to be paid for a given period. Initial rent is determined in the lease contract but it can change during the validity perido of a lease contract
 5. Charge, which is a fee levied by the apartment building usually for the maintenance of the common areas and the unit
  
-<img src="https://raw.githubusercontent.com/miikara/landlord/master/documentation/pictures/class diagram_new.png">
+<img src="https://raw.githubusercontent.com/miikara/landlord/master/documentation/pictures/class_diagram_new.png">
 
 ## Sequence diagram for accunt creation
 
