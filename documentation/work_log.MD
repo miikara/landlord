@@ -15,8 +15,9 @@
 | 6.12.        | Signup and login functionalities, tkinter | 6
 | 13.12.        | Main menu, unit database operations, displaying results in tkinter | 7.5
 | 14.12.        | Lease entity| 4
-| 17.12.        | Charge entity, Clickbutton options in ui, additions to unit, rental yield | 6
+| 17.12.        | Charge entity, Clickbutton options in ui, additions to unit, cap rate | 6
 | 21.12.        | Unit statistics calculations, tkinter further development | 6
 | 23.12.        | Matplotlib, unit count queries and modifying unit entity & repo | 4
-| TOTAL        |  | 70
+| 24.12.        | Matplotlib plots, occupancy calculation, documentation | 3
+| TOTAL        |  | 73
 
