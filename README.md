@@ -35,6 +35,6 @@ poetry run invoke lint
 [Architecture (arkkitehtuuri)](https://github.com/miikara/landlord/blob/master/documentation/architecture.MD)<br>
 [First release](https://github.com/miikara/landlord/releases/tag/viikko5)
 
-**License:** TBA <br>
+**License:** MIT License <br>
 
 **Contact:** miika.rannikko@gmail.com
