@@ -4,7 +4,6 @@ from tkinter.ttk import *
 from tkinter import messagebox
 from tkcalendar import *
 from services.service import landlord_service
-from dateutil import parser
 
 
 class InsertUnitsScreen:

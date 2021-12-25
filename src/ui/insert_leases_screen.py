@@ -32,6 +32,29 @@ class InsertLeasesScreen:
     def _main_menu(self):
         self._go_to_menu_screen()
 
+    def _input_not_empty_check(self, input_to_check, label=""):
+        if input_to_check == "":
+            messagebox.showinfo(title='Invalid input', message=f'{label} must not be empty', icon='error')
+            return False
+        else:
+            return True
+
+    def _input_integer_check(self, input_to_check, label=""):
+        try:
+            int(input_to_check)
+            return True
+        except ValueError:
+            messagebox.showinfo(title='Invalid input', message=f'{label} must be an integer', icon='error')
+            return False
+
+    def _input_float_check(self, input_to_check, label=""):
+        try:
+            float(input_to_check)
+            return True
+        except ValueError:
+            messagebox.showinfo(title='Invalid input', message=f'{label} must be an number', icon='error')
+            return False
+
     def create_lease_to_database(self):
         chosen_unit_id = self._unit_id_field_input.get()
         chosen_start_date = self._start_date_field_input.get_date()
@@ -41,9 +64,24 @@ class InsertLeasesScreen:
         chosen_maximum_annual_rent_increase = self._maximum_annual_rent_increase_field_input.get()
         chosen_rent_due_date = self._rent_due_date_field_input.get()
         chosen_deposit = self._deposit_field_input.get()
-        landlord_service.create_lease(chosen_unit_id, chosen_start_date, chosen_end_date_on_contract, chosen_tenant, chosen_original_monthly_rent, chosen_maximum_annual_rent_increase, chosen_rent_due_date, chosen_deposit)
-        landlord_service.create_rent(chosen_unit_id, chosen_start_date, chosen_original_monthly_rent, chosen_rent_due_date) # Tämä ongelma
-        self._main_menu()
+
+        if self._input_not_empty_check(chosen_unit_id, label='Chosen unit id') ==  False:
+            self._stay_on_screen()
+        elif self._input_integer_check(chosen_unit_id, label='Chosen unit id') == False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_start_date, label='Chosen lease start date') ==  False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_tenant, label='Chosen tenant') ==  False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_original_monthly_rent, label='Chosen monthly rent on contract') ==  False:
+            self._stay_on_screen()
+        elif self._input_float_check(chosen_original_monthly_rent, label='Chosen monthly rent on contract') ==  False:
+            self._stay_on_screen()
+        else:
+            landlord_service.create_lease(chosen_unit_id, chosen_start_date, chosen_end_date_on_contract, chosen_tenant, chosen_original_monthly_rent, chosen_maximum_annual_rent_increase, chosen_rent_due_date, chosen_deposit)
+            landlord_service.create_rent(chosen_unit_id, chosen_start_date, chosen_original_monthly_rent, chosen_rent_due_date)
+            messagebox.showinfo(title='Success', message=f'Lease succesfully created')
+            self._main_menu()
 
     def initialize(self):
         self._frame = Frame(master=self._root)
@@ -61,15 +99,13 @@ class InsertLeasesScreen:
         self._tenant_field_input = Entry(master=self._frame)   
         original_monthly_rent_label = Label(master=self._frame, text='Monthly rent on contract')
         self._original_monthly_rent_field_input = Entry(master=self._frame) 
-        maximum_annual_rent_increase_label = Label(master=self._frame, text='Maximum annual rent increase (%)')
+        maximum_annual_rent_increase_label = Label(master=self._frame, text='Maximum annual rent increase (optional)')
         self._maximum_annual_rent_increase_field_input = Entry(master=self._frame) 
-        rent_due_date_label = Label(master=self._frame, text='Rent due day of month')
+        rent_due_date_label = Label(master=self._frame, text='Rent due day of month (optional)')
         self._rent_due_date_field_input = Entry(master=self._frame) 
-        deposit_label = Label(master=self._frame, text='Deposit')
+        deposit_label = Label(master=self._frame, text='Deposit (optional)')
         self._deposit_field_input = Entry(master=self._frame) 
 
-
-        # Input field grids here
         unit_id_label.grid(pady=6, row=0, column=0)
         self._unit_id_field_input.grid(pady=6, row=0, column=1)
         start_date_label.grid(pady=20, row=1, column=0)
