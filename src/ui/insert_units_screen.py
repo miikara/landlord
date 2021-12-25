@@ -4,6 +4,7 @@ from tkinter.ttk import *
 from tkinter import messagebox
 from tkcalendar import *
 from services.service import landlord_service
+from dateutil import parser
 
 
 class InsertUnitsScreen:
@@ -37,6 +38,29 @@ class InsertUnitsScreen:
     def _main_menu(self):
         self._go_to_menu_screen()
 
+    def _input_not_empty_check(self, input_to_check, label=""):
+        if input_to_check == "":
+            messagebox.showinfo(title='Invalid input', message=f'{label} must not be empty', icon='error')
+            return False
+        else:
+            return True
+
+    def _input_integer_check(self, input_to_check, label=""):
+        try:
+            int(input_to_check)
+            return True
+        except ValueError:
+            messagebox.showinfo(title='Invalid input', message=f'{label} must be an integer', icon='error')
+            return False
+
+    def _input_float_check(self, input_to_check, label=""):
+        try:
+            float(input_to_check)
+            return True
+        except ValueError:
+            messagebox.showinfo(title='Invalid input', message=f'{label} must be an number', icon='error')
+            return False
+
     def create_unit_to_database(self):
         chosen_address = self._address_field_input.get()
         chosen_location = self._location_field_input.get()
@@ -54,9 +78,27 @@ class InsertUnitsScreen:
         chosen_asking_price = self._asking_price_field_input.get()
         chosen_purchase_price = self._purchase_price_field_input.get()
         chosen_acquired_date = self._acquired_date_field_input.get_date()
-        landlord_service.create_unit(chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, 
+        if self._input_not_empty_check(chosen_address, label='Chosen address field') == False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_location, label='Chosen location field') == False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_location, label='Chosen construction year') ==  False:
+            self._stay_on_screen()
+        elif self._input_integer_check(chosen_construction_year, label='Chosen construction year') == False:
+            self._stay_on_screen()
+        elif self._input_integer_check(chosen_square_meters, label='Chosen square meters') == False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_address, label='Chosen purchase price field') == False:
+            self._stay_on_screen()
+        elif self._input_float_check(chosen_purchase_price, label='Chosen purchase price price') == False:
+            self._stay_on_screen()
+        elif self._input_not_empty_check(chosen_acquired_date, label='Chosen acquired date') == False:
+            self._stay_on_screen()
+        else:
+            landlord_service.create_unit(chosen_address, chosen_location, chosen_construction_year, chosen_sewage_year, chosen_facade_year, chosen_windows_year, chosen_elevator_year, 
                                     chosen_has_elevator, chosen_square_meters, chosen_floor, chosen_asking_price, chosen_purchase_price, chosen_acquired_date)
-        self._main_menu()
+            messagebox.showinfo(title='Success', message=f'Unit succesfully created')
+            self._main_menu()
 
     def initialize(self):
         self._frame = Frame(master=self._root)
@@ -68,21 +110,21 @@ class InsertUnitsScreen:
         self._location_field_input = Entry(master=self._frame)
         construction_year_label = Label(master=self._frame, text='Construction year')
         self._construction_year_field_input = Entry(master=self._frame)
-        sewage_year_label = Label(master=self._frame, text='Sewage repair year') 
+        sewage_year_label = Label(master=self._frame, text='Sewage repair year (optional)') 
         self._sewage_year_field_input = Entry(master=self._frame)
-        facade_year_label = Label(master=self._frame, text='Facade repair year') 
+        facade_year_label = Label(master=self._frame, text='Facade repair year (optional)') 
         self._facade_year_field_input = Entry(master=self._frame)
-        windows_year_label = Label(master=self._frame, text='Window repair year') 
+        windows_year_label = Label(master=self._frame, text='Window repair year (optional)') 
         self._windows_year_field_input = Entry(master=self._frame)
-        elevator_year_label = Label(master=self._frame, text='Elevator repair year') 
+        elevator_year_label = Label(master=self._frame, text='Elevator repair year (optional)') 
         self._elevator_year_field_input = Entry(master=self._frame)
-        elevator_button = Checkbutton(master=self._frame, text='Building has elevator') 
+        elevator_button = Checkbutton(master=self._frame, text='Building has elevator (optional)') 
         self._has_elevator_field_state = elevator_button
         square_meters_label = Label(master=self._frame, text='Square meters')
         self._square_meters_field_input = Entry(master=self._frame)
-        floor_label = Label(master=self._frame, text='Floor')
+        floor_label = Label(master=self._frame, text='Floor (optional)')
         self._floor_field_input = Entry(master=self._frame)
-        asking_price_label = Label(master=self._frame, text='Asking price')
+        asking_price_label = Label(master=self._frame, text='Asking price (optional)')
         self._asking_price_field_input = Entry(master=self._frame)
         purchase_price_label = Label(master=self._frame, text='Purchase price')
         self._purchase_price_field_input = Entry(master=self._frame)
