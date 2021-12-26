@@ -17,6 +17,12 @@ class UnitRepository:
                          (unit.username, unit.address, unit.location, unit.construction_year, unit.sewage_year, unit.facade_year, unit.windows_year, unit.elevator_year, unit.has_elevator, unit.square_meters, unit.floor, unit.asking_price, unit.purchase_price, unit.acquired_date, unit.sold_date, unit.owned))
             conn.commit()
 
+    def delete_all_units_from_database(self):
+        conn = self._connection
+        with conn:
+            conn.execute('DELETE FROM units;')
+            conn.commit()
+
     def get_users_units(self, user):
         """Function allows service to get all pre-selected data stored for all units as a list of tuples for a specific user object"""
         conn = self._connection
@@ -60,6 +66,17 @@ class UnitRepository:
                 'SELECT unit_id FROM units WHERE owned = 1 AND username = ?;', (user.username, ))
             results = list(cursor)
             result_list = [i[0] for i in results]
+        return result_list
+
+    def get_users_unit_addresses(self, user):
+        """Function allows service to get a list of unit addresses for a specific user object"""
+        conn = self._connection
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'SELECT unit_id FROM units WHERE owned = 1 AND username = ?;', (user.username, ))
+            results = list(cursor)
+            result_list = [i[2] for i in results]
         return result_list
 
     def get_unit_ids_purchase_price(self, unit_id):

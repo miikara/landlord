@@ -17,8 +17,14 @@ class LeaseRepository:
                          (lease.unit_id, lease.created_time, lease.start_date, lease.end_date, lease.end_date_on_contract, lease.tenant, lease.contract_rent, lease.maximum_annual_rent_increase, lease.rent_due_date, lease.deposit))
             conn.commit()
 
+    def delete_all_leases_from_database(self):
+        conn = self._connection
+        with conn:
+            conn.execute('DELETE FROM leases;')
+            conn.commit()
+
     def get_all_leases(self):
-        """Function allows service to get all data stored for all leases as a list of tuples"""
+        """Function allows service to get all data stored for all lease data as a list of tuples"""
         conn = self._connection
         with conn:
             cursor = conn.cursor()

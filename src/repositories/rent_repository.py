@@ -16,6 +16,12 @@ class RentRepository:
                          (rent.lease_id, rent.start_date, rent.amount, rent.due_dom, rent.end_date))
             conn.commit()
 
+    def delete_all_rents_from_database(self):
+        conn = self._connection
+        with conn:
+            conn.execute('DELETE FROM rents;')
+            conn.commit()
+
     def get_units_rents(self, unit):
         """Function allows service to get all data stored for all rents as a list of tuples for a specific unit object based on its unit id"""
         conn = self._connection

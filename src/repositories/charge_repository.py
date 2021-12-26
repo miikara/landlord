@@ -16,6 +16,12 @@ class ChargeRepository:
                          (charge.unit_id, charge.start_date, charge.type, charge.amount, charge.due_dom, charge.description, charge.end_date))
             conn.commit()
 
+    def delete_all_charges_from_database(self):
+        conn = self._connection
+        with conn:
+            conn.execute('DELETE FROM charges;')
+            conn.commit()
+
     def get_units_charges(self, unit):
         """Function allows service to get all data stored for all charges as a list of tuples for a specific unit object based on its unit id"""
         conn = self._connection

@@ -1,5 +1,6 @@
 import unittest
-from repositories.user_repository import user_repository_used # Are the imports failing???
+import database as db
+from repositories.user_repository import user_repository_used
 from entities.user import User
 
 
@@ -7,6 +8,7 @@ class TestUserRepository(unittest.TestCase):
     def set_up(self):
         self.user = None
         self.user2 = None
+        db.create_users_table(db.get_connetion())
 
     def test_create_user_to_database(self):
         user_repository_used.delete_all_users_from_database()
