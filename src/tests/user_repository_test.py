@@ -39,6 +39,5 @@ class TestUserRepository(unittest.TestCase):
         result_password = user_repository_used.get_password('Test_username')
         self.assertEqual(result_password, 'Test_password')
 
-
     if __name__ == "__main__":
         unittest.main()

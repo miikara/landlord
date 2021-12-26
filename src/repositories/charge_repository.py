@@ -2,6 +2,7 @@ import database as db
 from entities.charge import Charge
 import datetime
 
+
 class ChargeRepository:
     """charge repository class which manages the database operations for charge class when user is logged in"""
 
@@ -45,7 +46,7 @@ class ChargeRepository:
             else:
                 charge_amount = 0.0
         return charge_amount
- 
+
     def get_unit_ids_latest_maintenance_charge_id(self, unit_id):
         """Function allows service to get the latest recurring maintenance charge of a specific unit id as a number"""
         conn = self._connection
@@ -67,6 +68,6 @@ class ChargeRepository:
             conn.execute('UPDATE charges SET end_date = ? WHERE charge_id = ?;',
                          (end_date, charge_id))
             conn.commit()
- 
+
 
 charge_repository_used = ChargeRepository(connection=db.get_connection())

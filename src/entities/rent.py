@@ -1,10 +1,11 @@
 import datetime
 
+
 class Rent:
-    def __init__(self, lease_id ,start_date, amount, due_dom=1, end_date=None):
+    def __init__(self, lease_id, start_date, amount, due_dom=1, end_date=None):
         """
         Class representing a rent applied on a unit such as recurring maintenance charges levied. First rent of a unit is created with the lease but changes can be made later due to rent increases
-        
+
         Attributes:
         lease id of the lease to which the rent belongs to, acting as the foreign key to join to leases
         start date representing when the rent will start to be active

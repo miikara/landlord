@@ -1,10 +1,11 @@
 import datetime
 
+
 class Charge:
-    def __init__(self, unit_id ,start_date, amount, type="recurring", due_dom=1, description="maintenance", end_date=None):
+    def __init__(self, unit_id, start_date, amount, type="recurring", due_dom=1, description="maintenance", end_date=None):
         """
         Class representing a charge applied on a unit such as recurring maintenance charges levied
-        
+
         Attributes:
         unit id of the unit to which the charge belongs to, acting as the foreign key to join to units
         start date representing when the charge will start to be levied

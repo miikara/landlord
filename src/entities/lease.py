@@ -1,10 +1,11 @@
 import datetime
 
+
 class Lease:
-    def __init__(self, unit_id ,start_date, end_date_on_contract, tenant, contract_rent, maximum_annual_rent_increase, rent_due_date, deposit):
+    def __init__(self, unit_id, start_date, end_date_on_contract, tenant, contract_rent, maximum_annual_rent_increase, rent_due_date, deposit):
         """
         Class representing a lease contract for a unit between the user and a tenant
-        
+
         Attributes:
         unit id of the unit to which the lease belongs to, acting as the foreign key to join to units
         created time representing when the lease object was created

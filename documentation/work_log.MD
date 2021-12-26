@@ -20,6 +20,6 @@
 | 23.12.        | Matplotlib, unit count queries and modifying unit entity & repo | 4
 | 24.12.        | Matplotlib plots, occupancy calculation, documentation | 3
 | 25.12.        | Fixes, instructions, input validators | 4
-| 26.12.        | Tests | 3
-| TOTAL        |  | 80
+| 26.12.        | Tests, docstrings | 4
+| TOTAL        |  | 81
 

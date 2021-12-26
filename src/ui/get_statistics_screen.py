@@ -32,9 +32,10 @@ class StatisticsScreen:
 
     def populate_list_of_units(self):
         list_of_units = landlord_service.get_units_owned()
-        cols = ['1','2','3','4','5','6','7']
-        tree = Treeview(self._root, columns=cols, show='headings', selectmode='browse')
-        for col in range(0,len(cols)):
+        cols = ['1', '2', '3', '4', '5', '6', '7']
+        tree = Treeview(self._root, columns=cols,
+                        show='headings', selectmode='browse')
+        for col in range(0, len(cols)):
             col_name = cols[col]
             tree.column(col_name, anchor=CENTER, width=110)
         tree.heading('1', text='unit identifier', anchor=CENTER)
@@ -44,9 +45,10 @@ class StatisticsScreen:
         tree.heading('5', text='square meters', anchor=CENTER)
         tree.heading('6', text='floor', anchor=CENTER)
         tree.heading('7', text='purchase price', anchor=CENTER)
-        for i in range(0,len(list_of_units)):
+        for i in range(0, len(list_of_units)):
             unit_to_insert = list_of_units[i]
-            tree.insert(parent= "",index=i, iid=f'row{i}' ,values = unit_to_insert)
+            tree.insert(parent="", index=i,
+                        iid=f'row{i}', values=unit_to_insert)
         self._list_of_units = tree
 
     def destroy_list_of_units(self):
@@ -54,25 +56,29 @@ class StatisticsScreen:
 
     def get_selected_unit_id(self):
         selected_unit = self._list_of_units.focus()
-        unit_id  = self._list_of_units.item(selected_unit).get('values')[0]
+        unit_id = self._list_of_units.item(selected_unit).get('values')[0]
         self._selected_unit_id.set(value=int(unit_id))
 
     def get_latest_tenant(self):
         selected_unit_id = int(self._selected_unit_id.get())
-        tenant = str(landlord_service.get_latest_active_lease_tenant(selected_unit_id))
+        tenant = str(
+            landlord_service.get_latest_active_lease_tenant(selected_unit_id))
         self._tenant_name.set(value=f'Current tenant: {tenant}')
 
     def get_latest_cap_rate(self):
         selected_unit_id = int(self._selected_unit_id.get())
         cap_rate = landlord_service.get_cap_rate(selected_unit_id)
         cap_rate_formatted = '{:.1%}'.format(cap_rate)
-        self._cap_rate.set(value=f'Cap rate without renovations: {cap_rate_formatted}')
+        self._cap_rate.set(
+            value=f'Cap rate without renovations: {cap_rate_formatted}')
 
     def get_latest_noi(self):
         selected_unit_id = int(self._selected_unit_id.get())
         noi = str(landlord_service.get_noi(selected_unit_id))
-        noi_formatted = babel.numbers.format_currency(noi, 'EUR', locale='en_US')
-        self._noi.set(value=f'Current net operating income per year: {noi_formatted}')
+        noi_formatted = babel.numbers.format_currency(
+            noi, 'EUR', locale='en_US')
+        self._noi.set(
+            value=f'Current net operating income per year: {noi_formatted}')
 
     def get_all_statistics(self):
         self.get_selected_unit_id()
@@ -80,11 +86,10 @@ class StatisticsScreen:
         self.get_latest_cap_rate()
         self.get_latest_noi()
 
-
     def initialize(self):
         self._frame = Frame(master=self._root)
 
-        Style().configure(style='green/black.TLabel', foreground = 'blue', background = 'white')
+        Style().configure(style='green/black.TLabel', foreground='blue', background='white')
 
         get_unit_statistics_button = Button(
             master=self._frame,
@@ -93,17 +98,17 @@ class StatisticsScreen:
         )
 
         return_to_menu_button = Button(
-            master=self._frame, 
-            text='Return to menu', 
+            master=self._frame,
+            text='Return to menu',
             command=self.main_menu)
-        
+
         message_label = Label(
             master=self._frame,
             style='green/black.TLabel',
             text='Click on unit and "show statistics" button to see core information for selected unit.'
         )
 
-        tenant_text_label=Label(
+        tenant_text_label = Label(
             master=self._frame,
             text='Current tenant'
         )
@@ -112,7 +117,7 @@ class StatisticsScreen:
             master=self._frame,
             font=('Calibri', 12, 'bold'),
             textvariable=self._tenant_name
-            )
+        )
 
         noi_label = Label(
             master=self._frame,
@@ -123,7 +128,7 @@ class StatisticsScreen:
             master=self._frame,
             font=('Calibri', 12, 'bold'),
             textvariable=self._cap_rate)
-        
+
         self.populate_list_of_units()
         self._list_of_units.pack(fill='x')
         if len(landlord_service.get_units_owned()) > 0:

@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkcalendar import *
 from services.service import landlord_service
 
+
 class SellUnitsScreen:
     def __init__(self, root, stay_on_screen, go_to_menu_screen):
         self._root = root
@@ -28,7 +29,8 @@ class SellUnitsScreen:
     def sell_unit(self):
         chosen_unit_id = self._unit_id_field_input.get()
         chosen_sold_date = self._sold_date_field_input.get_date()
-        landlord_service.sell_unit_and_set_sold_date(chosen_unit_id, chosen_sold_date)
+        landlord_service.sell_unit_and_set_sold_date(
+            chosen_unit_id, chosen_sold_date)
         self._main_menu()
 
     def initialize(self):
@@ -37,9 +39,9 @@ class SellUnitsScreen:
         unit_id_label = Label(master=self._frame, text='Unit id')
         self._unit_id_field_input = Entry(master=self._frame)
         sold_date_label = Label(master=self._frame, text='Sold date')
-        self._sold_date_field_input = Calendar(self._frame, selectmode='day', 
-            year=this_year, day=1, month=1, date_pattern='YYYY-MM-DD')
-        
+        self._sold_date_field_input = Calendar(self._frame, selectmode='day',
+                                               year=this_year, day=1, month=1, date_pattern='YYYY-MM-DD')
+
         unit_id_label.grid(pady=6, row=0, column=0)
         self._unit_id_field_input.grid(pady=6, row=0, column=1)
         sold_date_label.grid(pady=6, row=1, column=0)
@@ -54,8 +56,8 @@ class SellUnitsScreen:
         sell_unit_button.grid(pady=6, row=2, column=1)
 
         return_to_menu_button = Button(
-            master=self._frame, 
-            text='Return to menu', 
+            master=self._frame,
+            text='Return to menu',
             command=self._go_to_menu_screen)
 
         return_to_menu_button.grid(pady=6, row=3, column=1)

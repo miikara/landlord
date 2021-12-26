@@ -2,6 +2,7 @@ import database as db
 from entities.rent import Rent
 import datetime
 
+
 class RentRepository:
     """rent repository class which manages the database operations for Rent class"""
 
@@ -17,6 +18,7 @@ class RentRepository:
             conn.commit()
 
     def delete_all_rents_from_database(self):
+        """Function clears the rents table in database of all records"""
         conn = self._connection
         with conn:
             conn.execute('DELETE FROM rents;')
@@ -41,7 +43,7 @@ class RentRepository:
                 'SELECT rents.rent_id, rents.start_date, rents.amount, rents.due_dom, rents.end_date FROM rents INNER JOIN leases ON rents.lease_id = leases.lease_id WHERE leases.unit_id = ? ORDER BY rents.start_date DESC LIMIT 1;', (unit.unit_id, ))
             result = cursor.fetchone()
         return result
- 
+
     def get_unit_ids_latest_rent_id(self, unit_id):
         """Function allows service to get the latest rent id of a specific unit id as a number"""
         conn = self._connection
@@ -77,6 +79,6 @@ class RentRepository:
             conn.execute('UPDATE rents SET end_date = ? WHERE rent_id = ?;',
                          (end_date, rent_id))
             conn.commit()
- 
+
 
 rent_repository_used = RentRepository(connection=db.get_connection())

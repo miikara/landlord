@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter
 
 
-
 class MenuScreen:
     def __init__(self, root, stay_on_screen, go_to_login_screen, go_to_insert_units_screen, go_to_insert_leases_screen, go_to_insert_charges_screen, go_to_insert_rents_screen, go_to_sell_units_screen, go_to_statistics_screen):
         self._root = root
@@ -59,7 +58,8 @@ class MenuScreen:
 
     def graph_occupancy(self):
         current_username = str(self._logged_in_user.username)
-        dates, occupancies = landlord_service.get_occupancy_history(current_username)
+        dates, occupancies = landlord_service.get_occupancy_history(
+            current_username)
         plt.plot(dates, occupancies)
         plt.title('Occupancy per month')
         plt.ylabel('Occupancy')
@@ -72,27 +72,40 @@ class MenuScreen:
         self._frame.grid_columnconfigure(0, weight=2)
         self._frame.grid_columnconfigure(1, weight=2)
 
-        user_label = tk.Label(master=self._frame, text=f'Logged in as {self._logged_in_user}  ', anchor='e')
-        logout_button = tk.Button(master=self._frame, text='Logout', command=self.logout)
+        user_label = tk.Label(
+            master=self._frame, text=f'Logged in as {self._logged_in_user}  ', anchor='e')
+        logout_button = tk.Button(
+            master=self._frame, text='Logout', command=self.logout)
 
-        manage_portfolio_label = tk.Label(master=self._frame, text='Manage portfolio information:',borderwidth=3, relief='ridge')
-        portfolio_statistics_label = tk.Label(master=self._frame, text='Portfolio statistcs:',borderwidth=3, relief='ridge')
+        manage_portfolio_label = tk.Label(
+            master=self._frame, text='Manage portfolio information:', borderwidth=3, relief='ridge')
+        portfolio_statistics_label = tk.Label(
+            master=self._frame, text='Portfolio statistcs:', borderwidth=3, relief='ridge')
 
-        insert_unit_button = tk.Button(master=self._frame, text='Insert unit', command=self._go_to_insert_units_screen)
-        insert_lease_button = tk.Button(master=self._frame, text='Insert lease', command=self._go_to_insert_leases_screen)
-        insert_charge_button = tk.Button(master=self._frame, text='Insert charge', command=self._go_to_insert_charges_screen)
-        insert_rent_button = tk.Button(master=self._frame, text='Insert change in rent', command=self._go_to_insert_rents_screen)
-        sell_unit_button = tk.Button(master=self._frame, text='Mark unit as sold', command=self._go_to_sell_units_screen)
-        get_statistics_button = tk.Button(master=self._frame, text='Get unit level statistics', command=self._go_to_statistics_screen)
-        graph_units_button = tk.Button(master=self._frame, text='Graph portfolio unit amount', command=self.graph_units)
-        graph_occupancy_button = tk.Button(master=self._frame, text='Graph portfolio occupancy', command=self.graph_occupancy)
-
+        insert_unit_button = tk.Button(
+            master=self._frame, text='Insert unit', command=self._go_to_insert_units_screen)
+        insert_lease_button = tk.Button(
+            master=self._frame, text='Insert lease', command=self._go_to_insert_leases_screen)
+        insert_charge_button = tk.Button(
+            master=self._frame, text='Insert charge', command=self._go_to_insert_charges_screen)
+        insert_rent_button = tk.Button(
+            master=self._frame, text='Insert change in rent', command=self._go_to_insert_rents_screen)
+        sell_unit_button = tk.Button(
+            master=self._frame, text='Mark unit as sold', command=self._go_to_sell_units_screen)
+        get_statistics_button = tk.Button(
+            master=self._frame, text='Get unit level statistics', command=self._go_to_statistics_screen)
+        graph_units_button = tk.Button(
+            master=self._frame, text='Graph portfolio unit amount', command=self.graph_units)
+        graph_occupancy_button = tk.Button(
+            master=self._frame, text='Graph portfolio occupancy', command=self.graph_occupancy)
 
         user_label.grid(row=0, column=0, ipadx=15, ipady=15, sticky="nsew")
         logout_button.grid(row=0, column=1, columnspan=2, sticky='w')
 
-        manage_portfolio_label.grid(row=1, column=0, ipadx=15, ipady=15, sticky="nsew")
-        portfolio_statistics_label.grid(row=1, column=1, ipadx=15, ipady=15, sticky="nsew")
+        manage_portfolio_label.grid(
+            row=1, column=0, ipadx=15, ipady=15, sticky="nsew")
+        portfolio_statistics_label.grid(
+            row=1, column=1, ipadx=15, ipady=15, sticky="nsew")
 
         insert_unit_button.grid(row=2, column=0)
         insert_lease_button.grid(row=3, column=0)
@@ -102,5 +115,3 @@ class MenuScreen:
         get_statistics_button.grid(row=2, column=1)
         graph_units_button.grid(row=3, column=1)
         graph_occupancy_button.grid(row=4, column=1)
-
-
