@@ -34,7 +34,8 @@ poetry run invoke lint
 [Work log](https://github.com/miikara/landlord/blob/master/documentation/work_log.MD)<br>
 [Architecture](https://github.com/miikara/landlord/blob/master/documentation/architecture.MD)<br>
 [Instructions](https://github.com/miikara/landlord/blob/master/documentation/instructions.MD)<br>
-[Releases](https://github.com/miikara/landlord/releases)
+[Releases](https://github.com/miikara/landlord/releases)<br>
+[Test document](https://github.com/miikara/landlord/blob/master/documentation/testing.MD)
 
 **License:** MIT License <br>
 
